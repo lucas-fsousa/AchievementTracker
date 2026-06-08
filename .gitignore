@@ -25,5 +25,6 @@ tools/AUDIT.md
 backup-claude.ps1
 .claude/settings.local.json
 
-# Rascunho da descricao do CurseForge (nao versionar)
+# Descricao do CurseForge (nao versionar)
+CurseForge/
 curseforge/

@@ -65,28 +65,28 @@ jobs:
           body_path: notes.md
           files: dist/AchievementTracker.zip
 
-  # ---------------------------------------------------------------------------
-  # CurseForge: DESATIVADO por enquanto (nao publicamos a versao no CurseForge).
-  # Para reativar no futuro, descomente o job abaixo e configure os segredos:
+  # Publica no CurseForge usando o empacotador padrao da comunidade (BigWigs packager).
+  # ATIVO: os segredos ja estao configurados no GitHub. NAO dispara nada sozinho -- so
+  # roda ao publicar uma tag vX.Y.Z (ou no disparo manual, que faz um build alpha). Sem
+  # tag = sem release. Requer:
   #   - secret CF_API_KEY        -> token de API do CurseForge (Account > API Tokens)
   #   - variable CF_PROJECT_ID   -> ID numerico do projeto no CurseForge
-  # ---------------------------------------------------------------------------
-  # curseforge:
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     CF_API_KEY: ${{ secrets.CF_API_KEY }}
-  #     CF_PROJECT_ID: ${{ vars.CF_PROJECT_ID }}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0   # o packager usa as tags do git p/ versionar
-  #
-  #     - name: Package and upload to CurseForge
-  #       if: ${{ env.CF_API_KEY != '' && env.CF_PROJECT_ID != '' }}
-  #       uses: BigWigsMods/packager@v2
-  #       with:
-  #         args: -p ${{ env.CF_PROJECT_ID }}
-  #
-  #     - name: CurseForge upload skipped (no secrets configured)
-  #       if: ${{ env.CF_API_KEY == '' || env.CF_PROJECT_ID == '' }}
-  #       run: echo "CF_API_KEY secret and/or CF_PROJECT_ID variable not set — skipping CurseForge upload."
+  curseforge:
+    runs-on: ubuntu-latest
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      CF_PROJECT_ID: ${{ vars.CF_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # o packager usa as tags do git p/ versionar
+
+      - name: Package and upload to CurseForge
+        if: ${{ env.CF_API_KEY != '' && env.CF_PROJECT_ID != '' }}
+        uses: BigWigsMods/packager@v2
+        with:
+          args: -p ${{ env.CF_PROJECT_ID }}
+
+      - name: CurseForge upload skipped (no secrets configured)
+        if: ${{ env.CF_API_KEY == '' || env.CF_PROJECT_ID == '' }}
+        run: echo "CF_API_KEY secret and/or CF_PROJECT_ID variable not set — skipping CurseForge upload."
