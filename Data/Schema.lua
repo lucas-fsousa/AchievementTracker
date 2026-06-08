@@ -17,6 +17,10 @@
 --       skill   = "moderate",       -- trivial | moderate | high
 --       gated   = { 12345, 12346 }, -- pre-requisitos (achievementIDs), opcional
 --
+--       -- Sinal fino de tempo: minutos medios para concluir (estimado dos comentarios
+--       -- do Wowhead). Peso pequeno no score: so desempata os "faceis" entre si.
+--       effortMinutes = 30,
+--
 --       -- Contexto p/ a UI (opcional, mas valioso)
 --       note    = "Faca o evento semanal por ~4 semanas; pode fazer sozinho.",
 --       zone    = "Valdrakken",     -- onde se faz (p/ filtro de zona / waypoint)
