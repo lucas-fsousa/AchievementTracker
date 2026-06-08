@@ -3,26 +3,17 @@
 
 local ADDON, ns = ...
 
+-- NAO registramos CRITERIA_UPDATE de proposito: ele dispara constantemente (cada tick
+-- de progresso de criterio: pescar, matar, etc.) e ficaria re-varrendo a toa. A
+-- filosofia e: varre UMA vez (async) na 1a abertura; depois so reconstroi quando o
+-- jogador GANHA uma conquista (ACHIEVEMENT_EARNED) -- ai ela some do roadmap.
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")
 f:RegisterEvent("ACHIEVEMENT_EARNED")
-f:RegisterEvent("CRITERIA_UPDATE")
 f:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:RegisterEvent("CHAT_MSG_ADDON")
 f:RegisterEvent("GROUP_ROSTER_UPDATE")
-
--- Marca o roadmap como "sujo"; recalcula na proxima abertura/refresh.
-local dirty = true
-local function markDirty() dirty = true end
-
-local function rebuildIfNeeded()
-    if dirty then
-        ns.Logic.Roadmap.Build()
-        dirty = false
-    end
-    if ns.UI and ns.UI.Refresh then ns.UI.Refresh() end
-end
 
 local function handleEvent(_, event, arg1, arg2)
     if event == "PLAYER_LOGIN" then
@@ -31,7 +22,7 @@ local function handleEvent(_, event, arg1, arg2)
         -- primeira abertura (/achtrack) ou em /achtrack scan.
         if ns.UI.Minimap then ns.UI.Minimap.Init() end
         if ns.Version then ns.Version.Init() end
-        dirty = true
+        ns._dirty = true
         ns.Print(("v%s loaded  ·  WoW %s. Type |cffffff00/achtrack|r to open.")
             :format((ns.Version and ns.Version.current) or ns.VERSION or "?",
                     (ns.Version and ns.Version.GameString()) or "?"))
@@ -46,17 +37,18 @@ local function handleEvent(_, event, arg1, arg2)
         if ns.Version then ns.Version.Broadcast() end
 
     elseif event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
-        -- So o filtro "Current zone" muda; o roadmap em si nao.
+        -- So re-aplica o FILTRO de zona atual (sem nova varredura), e so quando o
+        -- filtro "Current zone" esta ligado e a janela esta aberta.
         if AchievementTrackerFrame and AchievementTrackerFrame:IsShown()
             and (ns.DB.Settings().zoneFilter or "All") == "Current" then
             ns.UI.Refresh()
         end
 
-    else
-        -- Conquista ganha ou criterio atualizado -> recalcular.
-        markDirty()
+    elseif event == "ACHIEVEMENT_EARNED" then
+        -- Unico gatilho de reconstrucao: ganhou uma conquista -> ela sai do roadmap.
+        ns._dirty = true
         if AchievementTrackerFrame and AchievementTrackerFrame:IsShown() then
-            rebuildIfNeeded()
+            ns.Logic.Roadmap.BuildAsync()  -- limpa ns._dirty e atualiza ao terminar
         end
     end
 end

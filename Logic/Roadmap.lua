@@ -53,6 +53,7 @@ function Roadmap.BuildAsync(onDone)
     ns._roadmap = items
     ns._building = true
     ns._buildDone = false
+    ns._dirty = false   -- estamos (re)varrendo com os dados atuais
 
     local curated = ns.Logic.Scanner.CuratedIndex()
     local showCompleted = ns.DB.Settings().showCompleted

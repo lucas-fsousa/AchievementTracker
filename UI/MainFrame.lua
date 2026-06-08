@@ -485,8 +485,10 @@ function UI.Toggle()
     if frame:IsShown() then
         frame:Hide()
     else
-        -- Abre na hora; a varredura roda em background e preenche aos poucos.
-        if not ns._buildDone and not ns._building then
+        -- Abre na hora; a varredura roda em background e preenche aos poucos. So
+        -- (re)varre na 1a vez ou se algo mudou (ns._dirty, ex.: ganhou conquista com
+        -- a janela fechada). Reabrir sem mudancas NAO re-varre (evita loading a toa).
+        if (not ns._buildDone or ns._dirty) and not ns._building then
             ns.Logic.Roadmap.BuildAsync()
         end
         UI.Refresh()
