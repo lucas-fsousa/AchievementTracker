@@ -21,6 +21,7 @@ Core\Waypoint.lua
 # Dados curados de dificuldade (um arquivo por categoria/grupo = uma sprint)
 Data\Schema.lua
 Data\Achievements_Sample.lua
+Data\Achievements_Fishing.lua
 
 # Logica
 Logic\AchievementScanner.lua
