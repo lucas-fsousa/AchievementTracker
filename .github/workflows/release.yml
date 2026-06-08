@@ -1,0 +1,90 @@
+name: Release
+
+# Dispara ao publicar uma tag vX.Y.Z. Gera o .zip do addon, cria um GitHub
+# Release com link de download permanente
+# (.../releases/latest/download/AchievementTracker.zip) e (se os segredos
+# estiverem configurados) publica no CurseForge.
+#
+# Tambem pode ser disparado manualmente (Actions -> Release -> Run workflow): nesse
+# caso SO o job do CurseForge roda, publicando um build *alpha* (nao mexe na release
+# estavel nem no GitHub) -- util p/ testar a integracao com o CurseForge.
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # necessario p/ criar o Release
+
+jobs:
+  release:
+    # So em tag real (nao no disparo manual de teste).
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve version from tag
+        id: v
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Verify .toc version matches the tag
+        run: |
+          toc=$(grep -oP '##\s*Version:\s*\K[0-9.]+' AchievementTracker.toc | tr -d '\r')
+          if [ "$toc" != "${{ steps.v.outputs.version }}" ]; then
+            echo "::error::AchievementTracker.toc Version ($toc) != tag (${{ steps.v.outputs.version }}). Bump the .toc."
+            exit 1
+          fi
+
+      - name: Build addon zip
+        run: |
+          # A pasta DENTRO do zip precisa se chamar exatamente "AchievementTracker"
+          # (sem versao), senao o WoW nao reconhece o addon ao instalar manualmente.
+          # O nome do arquivo e versionless de proposito: cada Release ja e tagueado,
+          # e isso da uma URL estavel
+          # (.../releases/latest/download/AchievementTracker.zip).
+          mkdir -p dist/AchievementTracker
+          cp -r AchievementTracker.toc Core Data Logic UI LICENSE README.md dist/AchievementTracker/
+          (cd dist && zip -rq AchievementTracker.zip AchievementTracker)
+          ls -la dist
+
+      - name: Extract release notes from CHANGELOG
+        run: |
+          awk -v v="${{ steps.v.outputs.version }}" '
+            index($0, "## [" v "]")==1 {flag=1; next}
+            index($0, "## [")==1 {flag=0}
+            flag {print}
+          ' CHANGELOG.md > notes.md
+          [ -s notes.md ] || echo "See CHANGELOG.md for details." > notes.md
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: AchievementTracker ${{ steps.v.outputs.version }}
+          body_path: notes.md
+          files: dist/AchievementTracker.zip
+
+  # Publica no CurseForge usando o empacotador padrao da comunidade (BigWigs
+  # packager). So roda se os segredos/variaveis estiverem configurados:
+  #   - secret CF_API_KEY        -> token de API do CurseForge (Account > API Tokens)
+  #   - variable CF_PROJECT_ID   -> ID numerico do projeto no CurseForge
+  curseforge:
+    runs-on: ubuntu-latest
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      CF_PROJECT_ID: ${{ vars.CF_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # o packager usa as tags do git p/ versionar
+
+      - name: Package and upload to CurseForge
+        if: ${{ env.CF_API_KEY != '' && env.CF_PROJECT_ID != '' }}
+        uses: BigWigsMods/packager@v2
+        with:
+          args: -p ${{ env.CF_PROJECT_ID }}
+
+      - name: CurseForge upload skipped (no secrets configured)
+        if: ${{ env.CF_API_KEY == '' || env.CF_PROJECT_ID == '' }}
+        run: echo "CF_API_KEY secret and/or CF_PROJECT_ID variable not set — skipping CurseForge upload."

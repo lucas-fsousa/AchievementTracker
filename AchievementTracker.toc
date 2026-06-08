@@ -1,0 +1,36 @@
+## Interface: 120005
+## Title: AchievementTracker
+## Notes: Roadmap of the easiest, solo-friendly achievements you're still missing.
+## Author: Lucas
+## Version: 0.1.0
+## SavedVariables: AchievementTrackerDB, AchievementTrackerDump
+## IconTexture: Interface\Icons\Achievement_General
+## X-Category: Achievements
+##
+## OBS: ajuste o numero de "## Interface" acima para a build atual do seu cliente
+## (ex.: 110207 para TWW 11.2.7, 120005 para Midnight 12.0.5). Se aparecer como
+## "desatualizado" na lista de addons, marque "Carregar addons desatualizados".
+
+# Core
+Core\Init.lua
+Core\Safe.lua
+Core\Database.lua
+Core\Version.lua
+Core\Waypoint.lua
+
+# Dados curados de dificuldade (um arquivo por categoria/grupo = uma sprint)
+Data\Schema.lua
+Data\Achievements_Sample.lua
+
+# Logica
+Logic\AchievementScanner.lua
+Logic\Expansion.lua
+Logic\Difficulty.lua
+Logic\Roadmap.lua
+
+# Interface
+UI\MainFrame.lua
+UI\Minimap.lua
+
+# Eventos e slash commands (por ultimo, depende de tudo acima)
+Core\Events.lua

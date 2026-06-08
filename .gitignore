@@ -1,0 +1,29 @@
+# OS / editor cruft
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.bak
+*.tmp
+*.swp
+.vscode/
+.idea/
+
+# WoW SavedVariables (geradas pelo cliente; nao versionar dados de conta)
+*.lua.bak
+SavedVariables/
+
+# Cache da tool de curadoria (paginas do Wowhead)
+tools/cache/
+tools/out.lua
+__pycache__/
+
+# Artefatos gerados pela auditoria (derivados do dump; dados de conta)
+tools/_*
+tools/AUDIT.md
+
+# Backup pessoal e config local do Claude (nao versionar)
+backup-claude.ps1
+.claude/settings.local.json
+
+# Rascunho da descricao do CurseForge (nao versionar)
+curseforge/
