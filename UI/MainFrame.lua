@@ -172,6 +172,7 @@ function UI.ShowDetail(item)
     end
 
     f.icon:SetTexture(item.icon or 134400)
+    f.icon:SetDesaturated(not item.completed)  -- obtida colorida; faltante em cinza
     f.name:SetText(item.name or "?")
 
     local c = ns.TIER_COLOR[item.tier] or { 1, 1, 1 }
@@ -268,7 +269,7 @@ end
 
 local function refreshRow(r, item)
     r.icon:SetTexture(item.icon or 134400)
-    r.icon:SetDesaturated(item.completed)   -- completas em cinza; faltantes coloridas
+    r.icon:SetDesaturated(not item.completed)  -- obtidas coloridas; faltantes em cinza
 
     r.name:SetText(item.name or "?")
 
@@ -289,7 +290,7 @@ end
 -- ---- Janela (lazy, na primeira abertura) ----
 local function buildFrame()
     frame = CreateFrame("Frame", "AchievementTrackerFrame", UIParent, "BasicFrameTemplateWithInset")
-    frame:SetSize(560, 580)
+    frame:SetSize(560, 600)
     frame:SetPoint("CENTER")
     frame:SetMovable(true)
     frame:EnableMouse(true)
@@ -307,60 +308,79 @@ local function buildFrame()
     frame.title:SetPoint("TOP", 0, -5)
     frame.title:SetText("AchievementTracker  -  roadmap")
 
-    -- Dropdown: filtro por expansao.
-    local ddLabel = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    ddLabel:SetPoint("TOPLEFT", 14, -28)
-    ddLabel:SetText("Expansion:")
+    -- Dropdown de valor generico (rotulo + UIDropDownMenu). `optionsFn` devolve uma
+    -- lista de { label=, value= }; getFn/setFn leem/gravam o filtro nas settings.
+    local function valueDropdown(name, labelText, x, y, width, optionsFn, getFn, setFn)
+        local lbl = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        lbl:SetPoint("TOPLEFT", x, y)
+        lbl:SetText(labelText)
+        local dd = CreateFrame("Frame", name, frame, "UIDropDownMenuTemplate")
+        dd:SetPoint("LEFT", lbl, "RIGHT", -6, -2)
+        UIDropDownMenu_SetWidth(dd, width)
+        UIDropDownMenu_Initialize(dd, function()
+            for _, opt in ipairs(optionsFn()) do
+                local info = UIDropDownMenu_CreateInfo()
+                info.text, info.value = opt.label, opt.value
+                info.checked = (getFn() == opt.value)
+                info.func = ns.Safe.Wrap("apply " .. name .. " filter", function()
+                    setFn(opt.value)
+                    UIDropDownMenu_SetText(dd, opt.label)
+                    UI.RefreshTop()
+                end)
+                UIDropDownMenu_AddButton(info)
+            end
+        end)
+        return dd
+    end
 
-    local dd = CreateFrame("Frame", "AchievementTrackerExpDropdown", frame, "UIDropDownMenuTemplate")
-    dd:SetPoint("LEFT", ddLabel, "RIGHT", -6, -2)
-    UIDropDownMenu_SetWidth(dd, 110)
-    UIDropDownMenu_Initialize(dd, function()
-        local function add(label, value)
-            local info = UIDropDownMenu_CreateInfo()
-            info.text, info.value = label, value
-            info.checked = (ns.DB.Settings().expansionFilter or "All") == value
-            info.func = ns.Safe.Wrap("apply expansion filter", function()
-                ns.DB.Settings().expansionFilter = value
-                UIDropDownMenu_SetText(dd, label)
-                UI.RefreshTop()
-            end)
-            UIDropDownMenu_AddButton(info)
-        end
-        add("All expansions", "All")
-        for _, e in ipairs(ns.EXPANSIONS) do add(e, e) end
-    end)
-    frame.ddExp = dd
+    -- Linha 1: Categoria (topo) + Subcategoria (filhas da categoria selecionada).
+    frame.ddCat = valueDropdown("AchievementTrackerCatDropdown", "Category:", 14, -28, 120,
+        function()
+            local opts = { { label = "All categories", value = "All" } }
+            for _, cat in ipairs(ns.Logic.Roadmap.Categories()) do
+                opts[#opts + 1] = { label = cat, value = cat }
+            end
+            return opts
+        end,
+        function() return ns.DB.Settings().categoryFilter or "All" end,
+        function(v)
+            -- Mudar a categoria reseta a subcategoria (as subs sao da categoria pai).
+            ns.DB.Settings().categoryFilter = v
+            ns.DB.Settings().subcategoryFilter = "All"
+        end)
 
-    -- Dropdown: filtro por categoria.
-    local cdLabel = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    cdLabel:SetPoint("TOPLEFT", 250, -28)
-    cdLabel:SetText("Category:")
+    frame.ddSub = valueDropdown("AchievementTrackerSubDropdown", "Subcategory:", 288, -28, 120,
+        function()
+            local opts = { { label = "All subcategories", value = "All" } }
+            for _, sub in ipairs(ns.Logic.Roadmap.Subcategories(ns.DB.Settings().categoryFilter)) do
+                opts[#opts + 1] = { label = sub, value = sub }
+            end
+            return opts
+        end,
+        function() return ns.DB.Settings().subcategoryFilter or "All" end,
+        function(v) ns.DB.Settings().subcategoryFilter = v end)
 
-    local cd = CreateFrame("Frame", "AchievementTrackerCatDropdown", frame, "UIDropDownMenuTemplate")
-    cd:SetPoint("LEFT", cdLabel, "RIGHT", -6, -2)
-    UIDropDownMenu_SetWidth(cd, 120)
-    UIDropDownMenu_Initialize(cd, function()
-        local function add(label, value)
-            local info = UIDropDownMenu_CreateInfo()
-            info.text, info.value = label, value
-            info.checked = (ns.DB.Settings().categoryFilter or "All") == value
-            info.func = ns.Safe.Wrap("apply category filter", function()
-                ns.DB.Settings().categoryFilter = value
-                UIDropDownMenu_SetText(cd, label)
-                UI.RefreshTop()
-            end)
-            UIDropDownMenu_AddButton(info)
-        end
-        add("All categories", "All")
-        for _, cat in ipairs(ns.Logic.Roadmap.Categories()) do add(cat, cat) end
-    end)
-    frame.ddCat = cd
+    -- Linha 2: Expansao + Zona.
+    frame.ddExp = valueDropdown("AchievementTrackerExpDropdown", "Expansion:", 14, -52, 120,
+        function()
+            local opts = { { label = "All expansions", value = "All" } }
+            for _, e in ipairs(ns.EXPANSIONS) do opts[#opts + 1] = { label = e, value = e } end
+            return opts
+        end,
+        function() return ns.DB.Settings().expansionFilter or "All" end,
+        function(v) ns.DB.Settings().expansionFilter = v end)
 
-    -- Checkboxes de toggle (Solo only / Show completed / Show unobtainable).
+    frame.ddZone = valueDropdown("AchievementTrackerZoneDropdown", "Zone:", 288, -52, 120,
+        function()
+            return { { label = "All zones", value = "All" }, { label = "Current zone", value = "Current" } }
+        end,
+        function() return ns.DB.Settings().zoneFilter or "All" end,
+        function(v) ns.DB.Settings().zoneFilter = v end)
+
+    -- Linha 3: Checkboxes de toggle (Solo only / Show completed / Show unobtainable).
     local function checkbox(x, label, getter, setter)
         local cb = CreateFrame("CheckButton", nil, frame, "UICheckButtonTemplate")
-        cb:SetPoint("TOPLEFT", x, -54)
+        cb:SetPoint("TOPLEFT", x, -78)
         local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
         lbl:SetPoint("LEFT", cb, "RIGHT", 2, 0)
         lbl:SetText(label)
@@ -382,7 +402,7 @@ local function buildFrame()
 
     -- Scroll virtualizado (FauxScrollFrame).
     scroll = CreateFrame("ScrollFrame", "AchievementTrackerScrollFrame", frame, "FauxScrollFrameTemplate")
-    scroll:SetPoint("TOPLEFT", 10, -82)
+    scroll:SetPoint("TOPLEFT", 10, -106)
     scroll:SetPoint("BOTTOMRIGHT", -30, 10)
     scroll:SetScript("OnVerticalScroll", function(self, offset)
         FauxScrollFrame_OnVerticalScroll(self, offset, ROW_STEP, UI.Refresh)
@@ -441,10 +461,15 @@ function UI.Refresh()
     if frame.cbCompleted then frame.cbCompleted:SetChecked(frame.cbCompleted._getter()) end
     if frame.cbUnobt then frame.cbUnobt:SetChecked(frame.cbUnobt._getter()) end
 
-    local ef = ns.DB.Settings().expansionFilter or "All"
-    UIDropDownMenu_SetText(frame.ddExp, ef == "All" and "All expansions" or ef)
-    local cf = ns.DB.Settings().categoryFilter or "All"
+    local s = ns.DB.Settings()
+    local cf = s.categoryFilter or "All"
     UIDropDownMenu_SetText(frame.ddCat, cf == "All" and "All categories" or cf)
+    local sf = s.subcategoryFilter or "All"
+    UIDropDownMenu_SetText(frame.ddSub, sf == "All" and "All subcategories" or sf)
+    local ef = s.expansionFilter or "All"
+    UIDropDownMenu_SetText(frame.ddExp, ef == "All" and "All expansions" or ef)
+    local zf = s.zoneFilter or "All"
+    UIDropDownMenu_SetText(frame.ddZone, zf == "Current" and "Current zone" or "All zones")
 end
 
 function UI.RefreshTop()

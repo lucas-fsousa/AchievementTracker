@@ -53,6 +53,37 @@ local function readProgress(achievementID)
 end
 Scanner.ReadProgress = readProgress
 
+-- ---- Hierarquia de categorias (categoria de topo -> subcategoria) ----
+-- GetCategoryInfo(catID) -> (nome, parentCategoryID, flags); parent == -1 na raiz.
+-- Resolve, para a categoria-folha onde a conquista vive: a categoria de TOPO (pai)
+-- e a SUBCATEGORIA (segundo nivel). Permite fragmentar o filtro (Categoria + Sub)
+-- em vez de uma lista unica gigante que estoura a tela. Cacheado.
+local catInfo = {}
+local function resolveCat(catID)
+    local c = catInfo[catID]
+    if c then return c end
+    local name, parent = GetCategoryInfo(catID)
+    c = { name = name or "?", parent = parent }
+    catInfo[catID] = c
+    return c
+end
+
+-- Retorna (topName, subName). subName e nil quando a folha ja e a categoria de topo.
+function Scanner.CategorySplit(catID)
+    local chain = {}
+    local cur, guard = catID, 0
+    while cur and cur ~= -1 and guard < 8 do
+        guard = guard + 1
+        local c = resolveCat(cur)
+        chain[#chain + 1] = c.name
+        cur = c.parent
+    end
+    if #chain == 0 then return "?", nil end
+    local topName = chain[#chain]
+    local subName = (#chain >= 2) and chain[#chain - 1] or nil
+    return topName, subName
+end
+
 -- Indexa o overlay curado por achievementID. Retorna o mapa.
 function Scanner.CuratedIndex()
     local curated = {}
@@ -75,6 +106,7 @@ function Scanner.MakeCandidate(catID, catName, isFoS, index, curated, readCriter
     if readCriteria and not completed then
         done, total, pct = readProgress(id)
     end
+    local topCat, subCat = Scanner.CategorySplit(catID)
     return {
         entry         = entry,
         id            = id,
@@ -86,6 +118,8 @@ function Scanner.MakeCandidate(catID, catName, isFoS, index, curated, readCriter
         rewardText    = rewardText,
         categoryID    = catID,
         categoryName  = catName,
+        category      = topCat,
+        subcategory   = subCat,
         isFoS         = isFoS,
         criteriaDone  = done,
         criteriaTotal = total,

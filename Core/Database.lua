@@ -14,7 +14,8 @@ local DEFAULTS = {
         showUnobtainable = false,  -- mostra Feat of Strength / removidas
         minimapAngle     = 205,    -- posicao do botao na borda (graus)
         minimapHide      = false,  -- esconder o botao do minimapa
-        categoryFilter   = "All",  -- filtro por categoria ("All" ou nome)
+        categoryFilter   = "All",  -- filtro por categoria de topo ("All" ou nome)
+        subcategoryFilter = "All", -- filtro por subcategoria ("All" ou nome)
         expansionFilter  = "All",  -- filtro por expansao ("All" ou nome)
         zoneFilter       = "All",  -- filtro por zona ("All" ou "Current")
     },

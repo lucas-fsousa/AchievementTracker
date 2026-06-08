@@ -197,6 +197,7 @@ function Roadmap.Filtered()
     local s = ns.DB.Settings()
     local out = {}
     local catFilter = s.categoryFilter
+    local subFilter = s.subcategoryFilter
     local expFilter = s.expansionFilter
     local zoneCurrent = (s.zoneFilter == "Current")
     local playerZones = zoneCurrent and playerZoneCandidates() or nil
@@ -209,7 +210,8 @@ function Roadmap.Filtered()
         if s.soloOnly and not item.soloable then show = false end
         if s.hideGroup and item.requiresGroup then show = false end
         if s.hideLongTerm and item.isLongTerm then show = false end
-        if catFilter and catFilter ~= "All" and item.categoryName ~= catFilter then show = false end
+        if catFilter and catFilter ~= "All" and item.category ~= catFilter then show = false end
+        if subFilter and subFilter ~= "All" and item.subcategory ~= subFilter then show = false end
         if expFilter and expFilter ~= "All" and item.expansion ~= expFilter then show = false end
         if zoneCurrent and not zoneMatches(item, playerZones) then show = false end
         if show then out[#out + 1] = item end
@@ -231,12 +233,27 @@ function Roadmap.ZoneDebug()
     return cands, matched, examples
 end
 
--- Lista de categorias presentes (p/ alimentar o dropdown de filtro).
+-- Categorias de TOPO presentes (alimenta o dropdown de Categoria).
 function Roadmap.Categories()
     local set, list = {}, {}
     for _, item in ipairs(ns._roadmap or {}) do
-        local c = item.categoryName
+        local c = item.category
         if c and c ~= "" and not set[c] then set[c] = true; list[#list + 1] = c end
+    end
+    table.sort(list)
+    return list
+end
+
+-- Subcategorias pertencentes a `parent` (alimenta o dropdown de Subcategoria).
+-- Se parent == "All"/nil, devolve lista vazia (o filtro de sub fica em "All").
+function Roadmap.Subcategories(parent)
+    local set, list = {}, {}
+    if not parent or parent == "All" then return list end
+    for _, item in ipairs(ns._roadmap or {}) do
+        if item.category == parent then
+            local s = item.subcategory
+            if s and s ~= "" and not set[s] then set[s] = true; list[#list + 1] = s end
+        end
     end
     table.sort(list)
     return list

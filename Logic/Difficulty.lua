@@ -61,28 +61,42 @@ local function dimsText(d)
     return table.concat(parts, " · ")
 end
 
+-- Grupo EFETIVO para o calculo: conteudo antigo solavel hoje (legacy-soloable)
+-- conta como SOLO, mesmo que originalmente fosse raid/party. E o pedido explicito:
+-- "boss de raid antiga que da pra solar" deve ter dificuldade bem baixa.
+local function effGroup(d)
+    if d.access == "legacy-soloable" then return "solo" end
+    return d.group
+end
+
 -- Score de dificuldade (menor = mais facil = topo).
-local function score(d, gatedPending, progress, uncurated)
-    local s = (W_GROUP[d.group] or 0) + (W_EFFORT[d.effort] or 0) + (W_RNG[d.rng] or 0)
+local function score(d, gatedPending, progress, uncurated, entry)
+    local s = (W_GROUP[effGroup(d)] or 0) + (W_EFFORT[d.effort] or 0) + (W_RNG[d.rng] or 0)
         + (W_ACCESS[d.access] or 0) + (W_SKILL[d.skill] or 0)
     -- Nao-curada: tier neutro, no meio da lista (nem topo facil nem fundo).
     if uncurated then s = 5 end
+    -- Sinal fino de tempo (estimado de comentarios do Wowhead): desempata os "faceis"
+    -- entre si (peso pequeno, so reordena dentro do mesmo tier).
+    if entry and entry.effortMinutes then
+        s = s + math.min((tonumber(entry.effortMinutes) or 0) / 600, 2)
+    end
     if gatedPending then s = s + PENALTY_GATE end
     s = s - (progress or 0) * BONUS_QUASE_LA
     return s
 end
 
--- Tier de exibicao (badge) derivado das dimensoes.
+-- Tier de exibicao (badge) derivado das dimensoes (usa o grupo EFETIVO).
 local function tierOf(d, uncurated, gatedPending)
     if d.access == "unobtainable" then return ns.TIER.UNOBTAINABLE end
     if uncurated then return ns.TIER.UNCURATED end
-    if d.group == "raid" or d.group == "mass" then return ns.TIER.GROUP end
+    local g = effGroup(d)
+    if g == "raid" or g == "mass" then return ns.TIER.GROUP end
     if d.rng == "high" or d.skill == "high" then return ns.TIER.HARD end
     if d.effort == "long-term" or d.effort == "seasonal" or d.effort == "multi-session" then
         return ns.TIER.GRIND
     end
-    if d.group == "party" or d.group == "duo" then return ns.TIER.GROUP end
-    if d.group == "solo" and (d.effort == "instant" or d.effort == "session")
+    if g == "party" or g == "duo" then return ns.TIER.GROUP end
+    if g == "solo" and (d.effort == "instant" or d.effort == "session")
         and d.rng == "none" then
         return ns.TIER.EASY_SOLO
     end
@@ -114,6 +128,8 @@ function Difficulty.Evaluate(cand)
         description  = cand.description,
         rewardText   = cand.rewardText,
         categoryName = cand.categoryName,
+        category     = cand.category,       -- categoria de topo (pai)
+        subcategory  = cand.subcategory,    -- subcategoria (filha do pai), pode ser nil
         expansion    = cand.expansion,
         completed    = cand.completed or isCompleted(cand.id),
         criteriaDone = cand.criteriaDone,
@@ -127,9 +143,10 @@ function Difficulty.Evaluate(cand)
     }
 
     item.tier = tierOf(d, uncurated, gatedPending)
-    item.score = score(d, gatedPending, progress, uncurated)
-    item.soloable = (d.group == "solo")
-    item.requiresGroup = (d.group == "party" or d.group == "raid" or d.group == "mass" or d.group == "duo")
+    item.score = score(d, gatedPending, progress, uncurated, entry)
+    local g = effGroup(d)
+    item.soloable = (g == "solo")
+    item.requiresGroup = (g == "party" or g == "raid" or g == "mass" or g == "duo")
     item.isLongTerm = (d.effort == "long-term" or d.effort == "seasonal")
     item.dimsText = dimsText(d)
 
