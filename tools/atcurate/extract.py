@@ -63,10 +63,13 @@ def comment_bodies(page_html):
 
 # ---- Tempo medio (o sinal que o projeto pediu) -----------------------------------
 
-# "took me 3 hours", "about 20 minutes", "~2 hrs", "took 45 mins"
+# "took me 3 hours", "about 20 minutes", "~2 hrs", "spent 45 mins", bare "2 weeks".
+# Prefixo opcional (muita gente escreve so "30 minutes"); a UNIDADE e obrigatoria e
+# raramente aparece fora de contexto de tempo.
 _TIME_RE = re.compile(
-    r"(?:took(?:\s+me)?|about|around|~|in)\s*(\d+(?:\.\d+)?)\s*"
-    r"(min(?:ute)?s?|hours?|hrs?|days?|weeks?)",
+    r"(?:took(?:\s+me)?|about|around|spent|roughly|only|in|over|~|maybe\s+)?\s*"
+    r"(\d+(?:\.\d+)?)\s*"
+    r"(minutes?|mins?|hours?|hrs?|days?|weeks?)\b",
     re.IGNORECASE,
 )
 _UNIT_MIN = {"min": 1, "minute": 1, "hour": 60, "hr": 60}
