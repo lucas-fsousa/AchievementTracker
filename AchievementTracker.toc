@@ -22,6 +22,8 @@ Core\Waypoint.lua
 Data\Schema.lua
 Data\Achievements_Sample.lua
 Data\Achievements_Fishing.lua
+Data\Achievements_Cooking.lua
+Data\Achievements_Archaeology.lua
 
 # Logica
 Logic\AchievementScanner.lua
