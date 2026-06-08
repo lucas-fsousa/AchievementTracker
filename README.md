@@ -117,6 +117,20 @@ achievements by difficulty, expansion by expansion / category by category.
 
 ---
 
+## 🐎 Companion addon — MountTracker
+
+Like this roadmap-for-achievements idea? Its sibling does the same for **mounts**:
+
+### 👉 [**MountTracker**](https://github.com/lucas-fsousa/MountTracker) — your personal mount-collecting roadmap
+
+Same easy-to-use approach, pointed at your mount collection: it cross-references your
+live reputation, renown, currencies and achievements against every mount you don't own
+and **lights up the ones you can already claim right now**, then builds a roadmap of the
+rest — easiest first — with the exact vendor, location and cost. Zero dependencies, same
+clean UI. Grab it here: **https://github.com/lucas-fsousa/MountTracker**
+
+---
+
 ## 📜 License
 
 Released under the **MIT License** — free to use, study and improve. See `LICENSE`.
