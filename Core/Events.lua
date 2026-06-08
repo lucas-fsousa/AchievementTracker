@@ -27,14 +27,14 @@ end
 local function handleEvent(_, event, arg1, arg2)
     if event == "PLAYER_LOGIN" then
         ns.DB.Init()
-        ns.Logic.Roadmap.Build()
+        -- NAO varremos no login: e caro e travaria. A varredura roda incremental na
+        -- primeira abertura (/achtrack) ou em /achtrack scan.
         if ns.UI.Minimap then ns.UI.Minimap.Init() end
         if ns.Version then ns.Version.Init() end
-        dirty = false
-        local s = ns._stats or {}
-        ns.Print(("v%s loaded  ·  WoW %s  ·  %d achievements still missing. Type |cffffff00/achtrack|r to open.")
+        dirty = true
+        ns.Print(("v%s loaded  ·  WoW %s. Type |cffffff00/achtrack|r to open.")
             :format((ns.Version and ns.Version.current) or ns.VERSION or "?",
-                    (ns.Version and ns.Version.GameString()) or "?", s.pending or 0))
+                    (ns.Version and ns.Version.GameString()) or "?"))
         if ns.Version and C_Timer then
             C_Timer.After(5, function() ns.Safe.Call("broadcast version", ns.Version.Broadcast) end)
         end
@@ -128,20 +128,20 @@ local function handleSlash(msg)
         if ns.UI and ns.UI.Refresh then ns.UI.Refresh() end
 
     elseif cmd == "scan" then
-        ns.Logic.Roadmap.Build()
-        local s = ns._stats or {}
-        ns.Print(("scan: %d achievements | %d completed | %d pending | %d unobtainable | overlay %d/%d")
-            :format(s.total or 0, s.completed or 0, s.pending or 0, s.unobtainable or 0, s.applied or 0, s.curated or 0))
-        if (s.unresolved or 0) > 0 and ns._unresolved then
-            ns.Print("  curated not found: " .. table.concat(ns._unresolved, ", "))
-        end
+        ns.Print("scanning…")
+        ns.Logic.Roadmap.BuildAsync(function(s)
+            ns.Print(("scan: %d achievements | %d completed | %d pending | %d unobtainable | overlay %d/%d")
+                :format(s.total or 0, s.completed or 0, s.pending or 0, s.unobtainable or 0, s.applied or 0, s.curated or 0))
+            if (s.unresolved or 0) > 0 and ns._unresolved then
+                ns.Print("  curated not found: " .. table.concat(ns._unresolved, ", "))
+            end
+        end)
 
     elseif cmd == "reset" then
         wipe(AchievementTrackerDB.markedDone)
         wipe(AchievementTrackerDB.hidden)
         ns.Print("overrides (done/hidden) cleared.")
-        ns.Logic.Roadmap.Build()
-        if ns.UI and ns.UI.Refresh then ns.UI.Refresh() end
+        ns.Logic.Roadmap.BuildAsync()
 
     elseif cmd == "debug" then
         ns.DEBUG = not ns.DEBUG

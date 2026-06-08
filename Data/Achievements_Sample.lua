@@ -9,37 +9,37 @@
 local ADDON, ns = ...
 
 ns.Data.Register("Sample", {
-    -- "Explore <zona>": tipico Easy · Solo (so andar e revelar o mapa).
+    -- "Explore <zone>": typical Easy · Solo (just walk and reveal the map).
     [1264] = {
         group  = "solo",
         effort = "session",
         rng    = "none",
         access = "legacy-soloable",
         skill  = "trivial",
-        note   = "Apenas revele todo o mapa da zona andando; 100% solo.",
+        note   = "Just reveal the whole zone map by walking; 100% solo.",
         zone   = "Tanaris",
         wowhead = "https://www.wowhead.com/achievement=1264",
     },
 
-    -- Evento sazonal recorrente: solo, mas preso a uma estacao -> Grind/seasonal.
+    -- Recurring seasonal event: solo, but locked to a holiday -> Grind/seasonal.
     [1784] = {
         group  = "solo",
         effort = "seasonal",
         rng    = "low",
         access = "current",
         skill  = "trivial",
-        note   = "Coma/beba os itens do Brewfest; alguns so saem em dias do evento.",
+        note   = "Eat/drink the Brewfest items; some only appear on event days.",
         wowhead = "https://www.wowhead.com/achievement=1784",
     },
 
-    -- Meta de raid: exige grupo + pericia alta -> Group/Hard.
+    -- Raid meta: needs a group + high skill -> Group/Hard.
     [4602] = {
         group  = "raid",
         effort = "multi-session",
         rng    = "none",
         access = "legacy-soloable",
         skill  = "high",
-        note   = "Meta de feitos da raid; hoje solavel em parte, mas alguns exigem mecanica.",
+        note   = "Raid feats meta; partly soloable today, but some require mechanics.",
         wowhead = "https://www.wowhead.com/achievement=4602",
     },
 })

@@ -16,7 +16,7 @@ local rows = {}
 
 -- Linha 2: dimensoes de dificuldade (curadas) -> "Solo · 1 sessão · sem RNG".
 local function dimsText(item)
-    if item.uncurated then return "|cff9a9aa6não classificada (uncurated)|r" end
+    if item.uncurated then return "|cff9a9aa6not classified (uncurated)|r" end
     return item.dimsText or ""
 end
 
@@ -418,12 +418,20 @@ function UI.Refresh()
     end
     for i = numVisible + 1, #rows do rows[i]:Hide() end
 
-    frame.title:SetText(("AchievementTracker  -  roadmap  (%d)"):format(#items))
+    if ns._building then
+        frame.title:SetText(("AchievementTracker  -  scanning…  (%d)"):format(#items))
+    else
+        frame.title:SetText(("AchievementTracker  -  roadmap  (%d)"):format(#items))
+    end
 
     if #items == 0 then
-        local s = ns._stats or {}
-        frame.empty:SetText(("Nothing to show with current filters.\n\n%d pending  |  %d completed  |  %d unobtainable\n\nAdjust the filters above, or run /achtrack scan.")
-            :format(s.pending or 0, s.completed or 0, s.unobtainable or 0))
+        if ns._building then
+            frame.empty:SetText("Scanning achievements…\nResults appear as they load.")
+        else
+            local s = ns._stats or {}
+            frame.empty:SetText(("Nothing to show with current filters.\n\n%d pending  |  %d completed  |  %d unobtainable\n\nAdjust the filters above, or run /achtrack scan.")
+                :format(s.pending or 0, s.completed or 0, s.unobtainable or 0))
+        end
         frame.empty:Show()
     else
         frame.empty:Hide()
@@ -452,7 +460,10 @@ function UI.Toggle()
     if frame:IsShown() then
         frame:Hide()
     else
-        ns.Logic.Roadmap.Build()
+        -- Abre na hora; a varredura roda em background e preenche aos poucos.
+        if not ns._buildDone and not ns._building then
+            ns.Logic.Roadmap.BuildAsync()
+        end
         UI.Refresh()
         frame:Show()
     end

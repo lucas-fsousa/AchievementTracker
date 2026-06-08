@@ -42,22 +42,22 @@ local function unsatisfiedGates(entry)
     return pend
 end
 
--- Texto humano das dimensoes (linha 2 da row): "Solo · 1 sessão · sem RNG".
-local GROUP_PT  = { solo = "Solo", duo = "Duo", party = "Party (2–5)", raid = "Raid (10–30)", mass = "Massa/zerg" }
-local EFFORT_PT = { instant = "instantâneo", session = "1 sessão", ["multi-session"] = "várias sessões",
-                    ["long-term"] = "dias de tarefa", seasonal = "evento sazonal" }
-local RNG_PT    = { none = "sem RNG", low = "RNG baixa", high = "RNG alta" }
-local ACCESS_PT = { ["legacy-soloable"] = "antigo (solável)", ["legacy-hard"] = "antigo (grupo)",
-                    unobtainable = "inobtenível" }
-local SKILL_PT  = { moderate = "perícia média", high = "perícia alta" }
+-- Human-readable dimensions (row line 2): "Solo · 1 session · no RNG".
+local GROUP_EN  = { solo = "Solo", duo = "Duo", party = "Party (2–5)", raid = "Raid (10–30)", mass = "Mass/zerg" }
+local EFFORT_EN = { instant = "instant", session = "1 session", ["multi-session"] = "multiple sessions",
+                    ["long-term"] = "days of grind", seasonal = "seasonal event" }
+local RNG_EN    = { none = "no RNG", low = "low RNG", high = "high RNG" }
+local ACCESS_EN = { ["legacy-soloable"] = "legacy (soloable)", ["legacy-hard"] = "legacy (group)",
+                    unobtainable = "unobtainable" }
+local SKILL_EN  = { moderate = "moderate skill", high = "high skill" }
 
 local function dimsText(d)
     local parts = {}
-    parts[#parts + 1] = GROUP_PT[d.group] or "Solo"
-    parts[#parts + 1] = EFFORT_PT[d.effort] or "1 sessão"
-    parts[#parts + 1] = RNG_PT[d.rng] or "sem RNG"
-    if ACCESS_PT[d.access] then parts[#parts + 1] = ACCESS_PT[d.access] end
-    if SKILL_PT[d.skill] then parts[#parts + 1] = SKILL_PT[d.skill] end
+    parts[#parts + 1] = GROUP_EN[d.group] or "Solo"
+    parts[#parts + 1] = EFFORT_EN[d.effort] or "1 session"
+    parts[#parts + 1] = RNG_EN[d.rng] or "no RNG"
+    if ACCESS_EN[d.access] then parts[#parts + 1] = ACCESS_EN[d.access] end
+    if SKILL_EN[d.skill] then parts[#parts + 1] = SKILL_EN[d.skill] end
     return table.concat(parts, " · ")
 end
 
@@ -133,11 +133,11 @@ function Difficulty.Evaluate(cand)
     item.isLongTerm = (d.effort == "long-term" or d.effort == "seasonal")
     item.dimsText = dimsText(d)
 
-    -- Linha de situacao (criterios / bloqueio).
+    -- Status line (criteria / blocked).
     if gatedPending then
-        item.detail = "bloqueada por: " .. table.concat(gatedPending, ", ")
+        item.detail = "blocked by: " .. table.concat(gatedPending, ", ")
     elseif (cand.criteriaTotal or 0) > 0 then
-        item.detail = ("%d / %d critérios"):format(cand.criteriaDone or 0, cand.criteriaTotal)
+        item.detail = ("%d / %d criteria"):format(cand.criteriaDone or 0, cand.criteriaTotal)
     else
         item.detail = ""
     end

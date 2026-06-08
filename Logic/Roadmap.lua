@@ -1,50 +1,136 @@
 -- Logic/Roadmap.lua
 -- Junta Scanner + Difficulty e ordena por score (mais facil/solo primeiro).
+-- A varredura e INCREMENTAL (coroutine com orcamento de tempo por frame) para nao
+-- travar o jogo: a janela abre na hora e vai sendo preenchida aos poucos.
 
 local ADDON, ns = ...
 
 local Roadmap = {}
 ns.Logic.Roadmap = Roadmap
 
--- Conta entradas curadas (diagnostico).
+local FRAME_BUDGET_MS = 8     -- quanto tempo de cada frame gastamos varrendo
+local CHUNK_MAX       = 60    -- teto de conquistas por fatia (fallback sem clock)
+local REFRESH_EVERY   = 6     -- a cada N fatias, re-ordena e atualiza a janela
+
+-- Clock de alta resolucao p/ o orcamento por frame (ms). debugprofilestop existe no
+-- cliente moderno; o teto CHUNK_MAX garante que cedemos o controle mesmo sem ele.
+local clock = debugprofilestop
+local hasClock = type(clock) == "function"
+
+local ticker
+local queuedDone           -- callback pendente se pediram rebuild durante um build
+
+-- Ordenacao: menor score primeiro; empate -> mais progresso primeiro, depois nome.
+local function cmp(a, b)
+    if a.score ~= b.score then return a.score < b.score end
+    if (a.progress or 0) ~= (b.progress or 0) then return (a.progress or 0) > (b.progress or 0) end
+    return (a.name or "") < (b.name or "")
+end
+
 local function curatedTotal()
     return #(ns.Data.All or {})
 end
 
--- Recalcula o roadmap inteiro. Retorna lista ordenada (inclui completas; o filtro
--- decide o que exibir).
-function Roadmap.Build()
-    local candidates = ns.Logic.Scanner.Collect()
-    local items = {}
-    local completed, unobtainable, applied = 0, 0, 0
+local function refreshUI()
+    if ns.UI and ns.UI.Refresh then ns.UI.Refresh() end
+end
 
-    for _, cand in ipairs(candidates) do
-        local item = ns.Logic.Difficulty.Evaluate(cand)
-        items[#items + 1] = item
-        if item.completed then completed = completed + 1 end
-        if item.tier == ns.TIER.UNOBTAINABLE then unobtainable = unobtainable + 1 end
-        if cand.entry then applied = applied + 1 end
+-- Cancela um build em andamento.
+function Roadmap.StopBuild()
+    if ticker then ticker:Cancel(); ticker = nil end
+    ns._building = false
+end
+
+-- Build incremental. `onDone(stats)` e chamado ao terminar (opcional).
+function Roadmap.BuildAsync(onDone)
+    -- Se ja esta varrendo, lembra o pedido p/ refazer ao terminar (dados mudaram).
+    if ns._building then
+        queuedDone = onDone or queuedDone or true
+        return
     end
 
-    -- Ordena por score (menor primeiro); empate -> mais progresso primeiro, depois nome.
-    table.sort(items, function(a, b)
-        if a.score ~= b.score then return a.score < b.score end
-        if (a.progress or 0) ~= (b.progress or 0) then return (a.progress or 0) > (b.progress or 0) end
-        return (a.name or "") < (b.name or "")
+    local items = {}
+    ns._roadmap = items
+    ns._building = true
+    ns._buildDone = false
+
+    local curated = ns.Logic.Scanner.CuratedIndex()
+    local showCompleted = ns.DB.Settings().showCompleted
+    local completed, unobtainable, applied = 0, 0, 0
+
+    local co = coroutine.create(function()
+        local cats = (GetCategoryList and GetCategoryList()) or {}
+        local sinceYield = 0
+        for _, catID in ipairs(cats) do
+            local catName = GetCategoryInfo and GetCategoryInfo(catID) or "?"
+            local isFoS = ns.Logic.Scanner.IsFeatOfStrengthName(catName)
+            local numAch = (GetCategoryNumAchievements and GetCategoryNumAchievements(catID)) or 0
+            for index = 1, numAch do
+                -- Le criterios so do que vamos exibir (incompletas, ou completas se o
+                -- toggle estiver ligado). Isso corta a maior parte do custo.
+                local cand = ns.Logic.Scanner.MakeCandidate(
+                    catID, catName, isFoS, index, curated, true)
+                if cand then
+                    local item = ns.Logic.Difficulty.Evaluate(cand)
+                    items[#items + 1] = item
+                    if item.completed then completed = completed + 1 end
+                    if item.tier == ns.TIER.UNOBTAINABLE then unobtainable = unobtainable + 1 end
+                    if cand.entry then applied = applied + 1 end
+                end
+                -- Cede o controle por tempo (orcamento) OU a cada CHUNK_MAX (fallback).
+                sinceYield = sinceYield + 1
+                if sinceYield >= CHUNK_MAX
+                    or (hasClock and clock() - ns._frameStart > FRAME_BUDGET_MS) then
+                    sinceYield = 0
+                    coroutine.yield()
+                end
+            end
+        end
     end)
 
-    ns._stats = {
-        total        = #candidates,
-        curated      = curatedTotal(),
-        applied      = applied,
-        unresolved   = ns._unresolved and #ns._unresolved or 0,
-        completed    = completed,
-        unobtainable = unobtainable,
-        pending      = #items - completed,   -- conquistas que ainda faltam
-    }
+    local slices = 0
+    ticker = C_Timer.NewTicker(0, function()
+        ns._frameStart = hasClock and clock() or 0
+        local ok, err = coroutine.resume(co)
+        if not ok then
+            ns.Print("|cffff6060scan failed.|r")
+            ns._lastError = tostring(err)
+            if ns.DEBUG then ns.Print("|cff888888debug:|r " .. tostring(err)) end
+            Roadmap.StopBuild()
+            return
+        end
 
-    ns._roadmap = items
-    return items
+        if coroutine.status(co) == "dead" then
+            table.sort(items, cmp)
+            ns._stats = {
+                total        = #items,
+                curated      = curatedTotal(),
+                applied      = applied,
+                unresolved   = ns._unresolved and #ns._unresolved or 0,
+                completed    = completed,
+                unobtainable = unobtainable,
+                pending      = #items - completed,
+            }
+            ns._buildDone = true
+            Roadmap.StopBuild()
+            refreshUI()
+            local cb = queuedDone; queuedDone = nil
+            if type(onDone) == "function" then onDone(ns._stats) end
+            -- Se pediram rebuild no meio, refaz agora com os dados atuais.
+            if cb then Roadmap.BuildAsync(type(cb) == "function" and cb or nil) end
+        else
+            slices = slices + 1
+            if slices % REFRESH_EVERY == 0 then
+                table.sort(items, cmp)
+                refreshUI()
+            end
+        end
+    end)
+end
+
+-- Compat: Build sincrono nao e mais usado no jogo (travaria). Aponta para o async.
+function Roadmap.Build(onDone)
+    return Roadmap.BuildAsync(onDone)
 end
 
 -- ---- Filtro de zona atual (espelha o MountTracker) ----
@@ -83,7 +169,6 @@ local function playerZoneCandidates()
     return names
 end
 
--- Zona(s) associada(s) a uma conquista, a partir do dado curado.
 local function itemZones(item)
     local z = {}
     local e = item.entry
@@ -108,7 +193,7 @@ end
 
 -- Aplica os filtros de settings (categoria / expansao / zona / toggles / ocultas).
 function Roadmap.Filtered()
-    local items = ns._roadmap or Roadmap.Build()
+    local items = ns._roadmap or {}
     local s = ns.DB.Settings()
     local out = {}
     local catFilter = s.categoryFilter
@@ -118,17 +203,12 @@ function Roadmap.Filtered()
 
     for _, item in ipairs(items) do
         local show = true
-        -- Completas: fora por padrao (a menos do toggle).
         if item.completed and not s.showCompleted then show = false end
-        -- Ocultas manualmente.
         if item.hidden and not s.showCompleted then show = false end
-        -- Inobteniveis (FoS): escondidas por padrao.
         if item.tier == ns.TIER.UNOBTAINABLE and not s.showUnobtainable then show = false end
-        -- Toggles de dificuldade.
         if s.soloOnly and not item.soloable then show = false end
         if s.hideGroup and item.requiresGroup then show = false end
         if s.hideLongTerm and item.isLongTerm then show = false end
-        -- Filtros de categoria / expansao / zona.
         if catFilter and catFilter ~= "All" and item.categoryName ~= catFilter then show = false end
         if expFilter and expFilter ~= "All" and item.expansion ~= expFilter then show = false end
         if zoneCurrent and not zoneMatches(item, playerZones) then show = false end
@@ -140,7 +220,7 @@ end
 -- Diagnostico do filtro de zona (/achtrack zone).
 function Roadmap.ZoneDebug()
     local cands = playerZoneCandidates()
-    local items = ns._roadmap or Roadmap.Build()
+    local items = ns._roadmap or {}
     local matched, examples = 0, {}
     for _, item in ipairs(items) do
         if not item.completed and zoneMatches(item, cands) then
