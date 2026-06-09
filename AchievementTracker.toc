@@ -24,6 +24,7 @@ Data\Achievements_Sample.lua
 Data\Achievements_Fishing.lua
 Data\Achievements_Cooking.lua
 Data\Achievements_Archaeology.lua
+Data\Achievements_Garrison.lua
 
 # Logica
 Logic\AchievementScanner.lua
