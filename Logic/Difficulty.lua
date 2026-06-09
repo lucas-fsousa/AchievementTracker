@@ -69,8 +69,20 @@ local function effGroup(d)
     return d.group
 end
 
+-- Penalidade de "carga de trabalho": quantos passos/quantidade ainda faltam (lido dos
+-- criterios ao vivo). E o ponto que o usuario destacou: uma conquista pode ser FACIL
+-- mas LONGA (ex.: "faca 100 missoes", ou uma meta com 12 sub-passos) -- ela nao deve
+-- ficar no topo das "mais faceis". Cresce com retornos decrescentes (log) e e somada
+-- ao score (empurra pra baixo). Usa o trabalho RESTANTE, entao encolhe com o progresso.
+local W_WORKLOAD_K   = 2.0   -- intensidade
+local W_WORKLOAD_CAP = 6.0   -- teto
+local function workloadPenalty(workload)
+    if not workload or workload <= 1 then return 0 end
+    return math.min((math.log(1 + workload) / math.log(10)) * W_WORKLOAD_K, W_WORKLOAD_CAP)
+end
+
 -- Score de dificuldade (menor = mais facil = topo).
-local function score(d, gatedPending, progress, uncurated, entry)
+local function score(d, gatedPending, progress, uncurated, entry, workload)
     local s = (W_GROUP[effGroup(d)] or 0) + (W_EFFORT[d.effort] or 0) + (W_RNG[d.rng] or 0)
         + (W_ACCESS[d.access] or 0) + (W_SKILL[d.skill] or 0)
     -- Nao-curada: tier neutro, no meio da lista (nem topo facil nem fundo).
@@ -80,13 +92,19 @@ local function score(d, gatedPending, progress, uncurated, entry)
     if entry and entry.effortMinutes then
         s = s + math.min((tonumber(entry.effortMinutes) or 0) / 600, 2)
     end
+    -- Carga de trabalho dos criterios: facil-mas-longa desce.
+    s = s + workloadPenalty(workload)
     if gatedPending then s = s + PENALTY_GATE end
     s = s - (progress or 0) * BONUS_QUASE_LA
     return s
 end
 
+-- A partir desta carga de trabalho restante, "facil mas longa" deixa de ser um topo
+-- verde e passa a ser tratada como grind (badge laranja).
+local WORKLOAD_GRIND = 15
+
 -- Tier de exibicao (badge) derivado das dimensoes (usa o grupo EFETIVO).
-local function tierOf(d, uncurated, gatedPending)
+local function tierOf(d, uncurated, gatedPending, workload)
     if d.access == "unobtainable" then return ns.TIER.UNOBTAINABLE end
     if uncurated then return ns.TIER.UNCURATED end
     local g = effGroup(d)
@@ -96,6 +114,8 @@ local function tierOf(d, uncurated, gatedPending)
         return ns.TIER.GRIND
     end
     if g == "party" or g == "duo" then return ns.TIER.GROUP end
+    -- Muitos passos/quantidade -> e um grind, mesmo que cada passo seja trivial.
+    if workload and workload >= WORKLOAD_GRIND then return ns.TIER.GRIND end
     if g == "solo" and (d.effort == "instant" or d.effort == "session")
         and d.rng == "none" then
         return ns.TIER.EASY_SOLO
@@ -134,6 +154,7 @@ function Difficulty.Evaluate(cand)
         completed    = cand.completed or isCompleted(cand.id),
         criteriaDone = cand.criteriaDone,
         criteriaTotal = cand.criteriaTotal,
+        workload     = cand.workload,
         progress     = progress,
         dims         = d,
         uncurated    = uncurated,
@@ -142,8 +163,8 @@ function Difficulty.Evaluate(cand)
         markedDone   = ns.DB and ns.DB.IsMarkedDone and ns.DB.IsMarkedDone(cand.id) or false,
     }
 
-    item.tier = tierOf(d, uncurated, gatedPending)
-    item.score = score(d, gatedPending, progress, uncurated, entry)
+    item.tier = tierOf(d, uncurated, gatedPending, cand.workload)
+    item.score = score(d, gatedPending, progress, uncurated, entry, cand.workload)
     local g = effGroup(d)
     item.soloable = (g == "solo")
     item.requiresGroup = (g == "party" or g == "raid" or g == "mass" or g == "duo")

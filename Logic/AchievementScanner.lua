@@ -29,15 +29,26 @@ Scanner.IsFeatOfStrengthName = isFeatOfStrengthName
 -- Retorna done, total, pct (0..1). CUSTOSO: so chamar para conquistas relevantes.
 local function readProgress(achievementID)
     local total = (GetAchievementNumCriteria and GetAchievementNumCriteria(achievementID)) or 0
-    if not total or total == 0 then return 0, 0, 0 end
+    if not total or total == 0 then return 0, 0, 0, 0 end
     local done = 0
     local sumQty, sumReq = 0, 0
+    local workload = 0   -- "trabalho restante": passos/quantidade que ainda faltam
     for i = 1, total do
         local _, _, completed, quantity, reqQuantity = GetAchievementCriteriaInfo(achievementID, i)
         completed = ns.Safe.Value(completed, false)
         quantity = ns.Safe.Value(quantity, 0) or 0
         reqQuantity = ns.Safe.Value(reqQuantity, 0) or 0
-        if completed then done = done + 1 end
+        if completed then
+            done = done + 1
+        else
+            -- Criterio quantitativo (ex.: "faca 100 missoes") conta o que falta em
+            -- unidades; criterio de checklist (faca/nao-faca) conta como 1 passo.
+            if reqQuantity and reqQuantity > 1 then
+                workload = workload + math.max(0, reqQuantity - quantity)
+            else
+                workload = workload + 1
+            end
+        end
         if reqQuantity and reqQuantity > 0 then
             sumQty = sumQty + math.min(quantity, reqQuantity)
             sumReq = sumReq + reqQuantity
@@ -49,7 +60,7 @@ local function readProgress(achievementID)
     else
         pct = done / total
     end
-    return done, total, math.max(0, math.min(1, pct))
+    return done, total, math.max(0, math.min(1, pct)), workload
 end
 Scanner.ReadProgress = readProgress
 
@@ -102,9 +113,9 @@ function Scanner.MakeCandidate(catID, catName, isFoS, index, curated, readCriter
     if not (id and name) then return nil end
     completed = ns.Safe.Value(completed, false) and true or false
     local entry = curated and curated[id] or nil
-    local done, total, pct = 0, 0, 0
+    local done, total, pct, workload = 0, 0, 0, 0
     if readCriteria and not completed then
-        done, total, pct = readProgress(id)
+        done, total, pct, workload = readProgress(id)
     end
     local topCat, subCat = Scanner.CategorySplit(catID)
     return {
@@ -124,6 +135,7 @@ function Scanner.MakeCandidate(catID, catName, isFoS, index, curated, readCriter
         criteriaDone  = done,
         criteriaTotal = total,
         progress      = pct,
+        workload      = workload,   -- passos/quantidade restantes (proxy de "demora")
         expansion     = ns.ExpansionFor((catName or "") .. " " .. (name or ""),
                             entry and entry.expansion),
     }
