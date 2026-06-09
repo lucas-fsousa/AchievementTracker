@@ -161,32 +161,44 @@ local function playerZoneCandidates()
             guard = guard + 1
             local info = C_Map.GetMapInfo(mid)
             if not info then break end
-            if info.mapType and info.mapType <= 2 then break end
-            add(info.name)
-            addChildInstances(mid)
+            if info.mapType and info.mapType <= 1 then break end  -- World/Cosmic: para
+            add(info.name)                                        -- zona ... ate o continente
+            if info.mapType == 3 then addChildInstances(mid) end  -- so as dungeons DA zona
+            if info.mapType == 2 then break end                   -- continente incluido, para
             mid = info.parentMapID
         end
     end
     return names
 end
 
-local function itemZones(item)
+-- Strings da conquista que podem citar a zona. A API de conquistas nao da uma "zona"
+-- por conquista, entao usamos os melhores sinais disponiveis: o `zone` curado (quando
+-- houver), a SUBCATEGORIA (que costuma ser a zona/continente, ex.: "Dragon Isles",
+-- "Kalimdor") e o proprio NOME (ex.: "Explore Tanaris", "Nazjatar Diver").
+local function itemZoneStrings(item)
     local z = {}
     local e = item.entry
     if e then
         if e.zone then z[#z + 1] = e.zone end
         if e.coords and e.coords.zone then z[#z + 1] = e.coords.zone end
     end
+    if item.subcategory and item.subcategory ~= "" then z[#z + 1] = item.subcategory end
+    if item.name and item.name ~= "" then z[#z + 1] = item.name end
     return z
 end
 
+-- Casa quando algum nome de zona do jogador aparece numa das strings da conquista
+-- (ou vice-versa). pz e o nome de zona do jogador (curto); preferimos achar pz dentro
+-- da string da conquista. Ignoramos pz muito curto p/ evitar falso positivo.
 local function zoneMatches(item, playerZones)
     if not playerZones or #playerZones == 0 then return false end
-    local zones = itemZones(item)
+    local strings = itemZoneStrings(item)
     for _, pz in ipairs(playerZones) do
-        for _, z in ipairs(zones) do
-            local lz = z:lower()
-            if lz:find(pz, 1, true) or pz:find(lz, 1, true) then return true end
+        if #pz >= 4 then
+            for _, z in ipairs(strings) do
+                local lz = z:lower()
+                if lz:find(pz, 1, true) or pz:find(lz, 1, true) then return true end
+            end
         end
     end
     return false
