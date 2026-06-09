@@ -1,9 +1,7 @@
--- Achievements_Garrison.lua
--- Lote inicial da categoria Draenor Garrison (WoD, solo).
--- Gerado por tools/curate.py (sinais dos comentarios do Wowhead) + normalizacao
--- de dominio (solo, sem pericia mecanica; access conservador = current).
--- effort/rng/effortMinutes refletem o grind/RNG real. Revisar e refinar e bem-vindo.
--- Ver o schema em Data/Schema.lua.
+-- Achievements_ExpansionFeatures.lua
+-- Overlay curado — categoria de topo Expansion Features.
+-- Pre-declarado no .toc: atualizar os dados aqui so exige /reload (sem
+-- reiniciar o cliente). Preencher via tools/curate.py. Schema: Data/Schema.lua.
 
 local ADDON, ns = ...
 
@@ -544,3 +542,4 @@ ns.Data.Register("Draenor Garrison", {
         wowhead = "https://www.wowhead.com/achievement=9492",
     },
 })
+

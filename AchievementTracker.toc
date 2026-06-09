@@ -18,13 +18,24 @@ Core\Database.lua
 Core\Version.lua
 Core\Waypoint.lua
 
-# Dados curados de dificuldade (um arquivo por categoria/grupo = uma sprint)
+# Dados curados de dificuldade — UM arquivo por categoria de topo, TODOS pre-declarados
+# aqui de uma vez. Assim, curar mais conteudo = editar o arquivo correspondente +
+# /reload (sem reiniciar o cliente, que so e necessario quando um arquivo NOVO entra
+# no .toc). Stubs vazios ficam inertes ate serem preenchidos.
 Data\Schema.lua
-Data\Achievements_Sample.lua
-Data\Achievements_Fishing.lua
-Data\Achievements_Cooking.lua
-Data\Achievements_Archaeology.lua
-Data\Achievements_Garrison.lua
+Data\Achievements_Character.lua
+Data\Achievements_Quests.lua
+Data\Achievements_Exploration.lua
+Data\Achievements_PvP.lua
+Data\Achievements_DungeonsRaids.lua
+Data\Achievements_Professions.lua
+Data\Achievements_Reputation.lua
+Data\Achievements_WorldEvents.lua
+Data\Achievements_PetBattles.lua
+Data\Achievements_Collections.lua
+Data\Achievements_ExpansionFeatures.lua
+Data\Achievements_FeatsOfStrength.lua
+Data\Achievements_Legacy.lua
 
 # Logica
 Logic\AchievementScanner.lua
