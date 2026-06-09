@@ -34,7 +34,10 @@ from atcurate.http import Http                 # noqa: E402
 def main():
     ap = argparse.ArgumentParser(description="Curate achievement difficulty from Wowhead.")
     ap.add_argument("--dump", required=True, help="SavedVariables/AchievementTracker.lua")
-    ap.add_argument("--filter", default="", help="substring (category or name) to include")
+    ap.add_argument("--filter", default="", help="substring (subcategory leaf or name) to include")
+    ap.add_argument("--category", default="", help="exact top-level category to include "
+                    "(e.g. 'Reputation', 'Quests', 'World Events'); needs a dump that "
+                    "carries the 'category' field")
     ap.add_argument("--include-completed", action="store_true",
                     help="also process achievements already completed")
     ap.add_argument("--limit", type=int, default=0, help="max achievements to process (0 = all)")
@@ -48,9 +51,12 @@ def main():
 
     records = dumpmod.load(args.dump, lua_bin=args.lua)
     flt = args.filter.lower()
+    cat = args.category.lower()
     picked = []
     for r in records:
         if not args.include_completed and r.get("completed"):
+            continue
+        if cat and str(r.get("category", "")).lower() != cat:
             continue
         hay = (str(r.get("name", "")) + " " + str(r.get("categoryName", ""))).lower()
         if flt and flt not in hay:
@@ -59,9 +65,11 @@ def main():
     if args.limit > 0:
         picked = picked[:args.limit]
 
+    label = args.category or args.filter or "all"
+
     http = Http(args.cache, delay=args.delay)
 
-    print(f"-- atcurate: {len(picked)} achievement(s) matching {args.filter!r} "
+    print(f"-- atcurate: {len(picked)} achievement(s) matching {label!r} "
           f"(of {len(records)} in dump). REVIEW each entry before committing.")
     print('ns.Data.Register("REVIEW", {')
     for r in picked:

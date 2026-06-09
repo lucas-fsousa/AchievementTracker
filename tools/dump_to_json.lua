@@ -25,7 +25,7 @@ local function jval(v)
 end
 
 local FIELDS = { "id", "name", "points", "completed", "categoryID",
-                 "categoryName", "criteriaDone", "criteriaTotal" }
+                 "categoryName", "category", "subcategory", "criteriaDone", "criteriaTotal" }
 
 for _, a in ipairs(AchievementTrackerDump.achievements) do
     local parts = {}

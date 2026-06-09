@@ -63,8 +63,19 @@ python3 curate.py \
 lua5.1 validate.lua ..
 ```
 
-Options: `--include-completed`, `--limit N`, `--comments` (also fetch the dedicated
-comments page — more requests), `--cache <dir>` (defaults to `tools/cache/`, gitignored).
+Filter by **top-level category** instead of a name substring (more reliable for
+categories whose leaf names are expansion names, e.g. Reputation/Quests/World Events):
+
+```bash
+python3 curate.py --dump <sv> --category "Reputation" --delay 1.0 --lua lua5.1 > out.lua
+```
+
+`--category` needs a dump produced by an addon build that writes the `category` field
+(re-run `/achtrack dump` + `/reload` after updating).
+
+Options: `--filter` (subcategory/name substring), `--category` (exact top category),
+`--include-completed`, `--limit N`, `--comments` (also fetch the dedicated comments page
+— more requests), `--cache <dir>` (defaults to `tools/cache/`, gitignored).
 
 ## Validation
 

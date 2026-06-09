@@ -149,6 +149,7 @@ function Scanner.Dump()
     local cats = (GetCategoryList and GetCategoryList()) or {}
     for _, catID in ipairs(cats) do
         local catName = GetCategoryInfo and GetCategoryInfo(catID) or "?"
+        local topCat, subCat = Scanner.CategorySplit(catID)
         local numAch = (GetCategoryNumAchievements and GetCategoryNumAchievements(catID)) or 0
         for index = 1, numAch do
             local id, name, points, completed = GetAchievementInfo(catID, index)
@@ -161,6 +162,8 @@ function Scanner.Dump()
                     completed     = ns.Safe.Value(completed, false) and true or false,
                     categoryID    = catID,
                     categoryName  = catName,
+                    category      = topCat,    -- categoria de topo (p/ curar por top category)
+                    subcategory   = subCat or "",
                     criteriaDone  = done,
                     criteriaTotal = total,
                 }
