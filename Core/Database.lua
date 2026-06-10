@@ -17,6 +17,7 @@ local DEFAULTS = {
         categoryFilter   = "All",  -- filtro por categoria de topo ("All" ou nome)
         subcategoryFilter = "All", -- filtro por subcategoria ("All" ou nome)
         expansionFilter  = "All",  -- filtro por expansao ("All" ou nome)
+        tierFilter       = "All",  -- filtro por tier de dificuldade ("All" ou chave do TIER)
         zoneFilter       = "All",  -- filtro por zona ("All" ou "Current")
     },
 }

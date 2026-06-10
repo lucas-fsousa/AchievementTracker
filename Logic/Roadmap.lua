@@ -212,6 +212,7 @@ function Roadmap.Filtered()
     local catFilter = s.categoryFilter
     local subFilter = s.subcategoryFilter
     local expFilter = s.expansionFilter
+    local tierFilter = s.tierFilter
     local zoneCurrent = (s.zoneFilter == "Current")
     local playerZones = zoneCurrent and playerZoneCandidates() or nil
 
@@ -226,6 +227,7 @@ function Roadmap.Filtered()
         if catFilter and catFilter ~= "All" and item.category ~= catFilter then show = false end
         if subFilter and subFilter ~= "All" and item.subcategory ~= subFilter then show = false end
         if expFilter and expFilter ~= "All" and item.expansion ~= expFilter then show = false end
+        if tierFilter and tierFilter ~= "All" and item.tier ~= tierFilter then show = false end
         if zoneCurrent and not zoneMatches(item, playerZones) then show = false end
         if show then out[#out + 1] = item end
     end

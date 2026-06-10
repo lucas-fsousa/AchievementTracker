@@ -125,22 +125,26 @@ local function buildDetail()
     f.badge:SetPoint("TOPLEFT", f.icon, "BOTTOMLEFT", 0, -8)
     f.badge:SetJustifyH("LEFT")
 
-    f.info = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    f.info:SetPoint("TOPLEFT", 14, -110); f.info:SetPoint("RIGHT", -14, 0)
-    f.info:SetJustifyH("LEFT"); f.info:SetSpacing(3); f.info:SetWordWrap(true)
-
-    -- Area de criterios (scroll de texto simples).
-    local cs = CreateFrame("ScrollFrame", "AchievementTrackerCriteriaScroll", f, "UIPanelScrollFrameTemplate")
-    cs:SetPoint("TOPLEFT", 14, -190)
+    -- Corpo unico ROLAVEL: info + criterios + pre-requisitos, tudo junto. Antes havia
+    -- duas areas de altura fixa que se sobrepunham com conteudo longo (ex.: meta com
+    -- muitos criterios/pre-requisitos). Agora tudo stacka num FontString dentro do
+    -- scroll, cuja altura acompanha o texto -> sem sobreposicao e com scroll funcional.
+    local cs = CreateFrame("ScrollFrame", "AchievementTrackerDetailScroll", f, "UIPanelScrollFrameTemplate")
+    cs:SetPoint("TOPLEFT", 14, -116)
     cs:SetPoint("BOTTOMRIGHT", -34, 118)
+    cs:EnableMouseWheel(true)
+    cs:SetScript("OnMouseWheel", function(self, delta)
+        self:SetVerticalScroll(math.max(0, self:GetVerticalScroll() - delta * 24))
+    end)
     local content = CreateFrame("Frame", nil, cs)
-    content:SetSize(280, 10)
+    content:SetSize(288, 10)
     cs:SetScrollChild(content)
-    f.criteria = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    f.criteria:SetPoint("TOPLEFT", 0, 0)
-    f.criteria:SetWidth(280)
-    f.criteria:SetJustifyH("LEFT"); f.criteria:SetSpacing(3); f.criteria:SetWordWrap(true)
-    f.criteriaContent = content
+    f.body = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    f.body:SetPoint("TOPLEFT", 0, 0)
+    f.body:SetWidth(288)
+    f.body:SetJustifyH("LEFT"); f.body:SetSpacing(3); f.body:SetWordWrap(true)
+    f.bodyContent = content
+    f.scroll = cs
 
     local function actBtn(text)
         local b = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
@@ -185,20 +189,16 @@ function UI.ShowDetail(item)
     if item.description and item.description ~= "" then lines[#lines + 1] = "|cffd0d0d0" .. item.description .. "|r" end
     if item.entry and item.entry.note then lines[#lines + 1] = "|cffffe39a" .. item.entry.note .. "|r" end
     if item.detail and item.detail ~= "" then lines[#lines + 1] = item.detail end
-    -- Pre-requisitos nao concluidos (meta-achievement): lista os nomes.
-    if item.gatedPending and #item.gatedPending > 0 then
-        local names = {}
-        for _, gid in ipairs(item.gatedPending) do
-            local _, nm = GetAchievementInfo(gid)
-            names[#names + 1] = "  • " .. (nm or ("#" .. tostring(gid)))
-        end
-        lines[#lines + 1] = "|cffff7777Requires:|r\n" .. table.concat(names, "\n")
-    end
-    f.info:SetText(table.concat(lines, "\n"))
-
+    -- Criterios (checklist com [x]/[ ]); para metas, cada criterio E um pre-requisito,
+    -- entao a checklist ja mostra o que falta -- nao duplicamos uma lista "Requires".
     local crit = criteriaLines(item.id)
-    f.criteria:SetText(crit)
-    f.criteriaContent:SetHeight(math.max(10, f.criteria:GetStringHeight() + 4))
+    if crit ~= "" then
+        lines[#lines + 1] = "\n|cffffd200Criteria:|r"
+        lines[#lines + 1] = crit
+    end
+    f.body:SetText(table.concat(lines, "\n"))
+    f.bodyContent:SetHeight(math.max(10, f.body:GetStringHeight() + 4))
+    f.scroll:SetVerticalScroll(0)   -- sempre abre no topo
 
     local url = (item.entry and item.entry.wowhead) or ("https://www.wowhead.com/achievement=" .. tostring(item.id))
     f.btnWowhead:SetScript("OnClick", ns.Safe.Wrap("open Wowhead link", function() ShowWowhead(url) end))
@@ -299,7 +299,7 @@ end
 -- ---- Janela (lazy, na primeira abertura) ----
 local function buildFrame()
     frame = CreateFrame("Frame", "AchievementTrackerFrame", UIParent, "BasicFrameTemplateWithInset")
-    frame:SetSize(700, 600)
+    frame:SetSize(880, 600)
     frame:SetPoint("CENTER")
     frame:SetMovable(true)
     frame:EnableMouse(true)
@@ -377,6 +377,18 @@ local function buildFrame()
         function() return ns.DB.Settings().expansionFilter or "All" end,
         function(v) ns.DB.Settings().expansionFilter = v end)
     frame.ddExp:SetPoint("LEFT", frame.ddSub, "RIGHT", -12, 0)
+
+    frame.ddTier = valueDropdown("AchievementTrackerTierDropdown", 120,
+        function()
+            local opts = { { label = "All difficulties", value = "All" } }
+            for _, t in ipairs(ns.TIER_ORDER) do
+                opts[#opts + 1] = { label = ns.TIER_LABEL[t] or t, value = t }
+            end
+            return opts
+        end,
+        function() return ns.DB.Settings().tierFilter or "All" end,
+        function(v) ns.DB.Settings().tierFilter = v end)
+    frame.ddTier:SetPoint("LEFT", frame.ddExp, "RIGHT", -12, 0)
 
     -- Linha 3: Checkboxes de toggle (Solo only / Show completed / Show unobtainable /
     -- Only current zone). "Current zone" virou checkbox (em vez de dropdown) -> liga/
@@ -475,6 +487,8 @@ function UI.Refresh()
     UIDropDownMenu_SetText(frame.ddSub, sf == "All" and "All subcategories" or sf)
     local ef = s.expansionFilter or "All"
     UIDropDownMenu_SetText(frame.ddExp, ef == "All" and "All expansions" or ef)
+    local tf = s.tierFilter or "All"
+    UIDropDownMenu_SetText(frame.ddTier, tf == "All" and "All difficulties" or (ns.TIER_LABEL[tf] or tf))
 end
 
 function UI.RefreshTop()

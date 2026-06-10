@@ -62,6 +62,11 @@ ns.TIER_LABEL = {
     UNCURATED    = "Uncurated",
 }
 
+-- Ordem dos tiers (fácil -> difícil) p/ o dropdown de filtro de dificuldade.
+ns.TIER_ORDER = {
+    "EASY_SOLO", "MEDIUM", "GRIND", "GROUP", "HARD", "UNOBTAINABLE", "UNCURATED",
+}
+
 -- Helper de print com prefixo.
 function ns.Print(msg)
     DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00AchievementTracker|r: " .. tostring(msg))
