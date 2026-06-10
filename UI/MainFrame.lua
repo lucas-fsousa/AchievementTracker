@@ -299,7 +299,7 @@ end
 -- ---- Janela (lazy, na primeira abertura) ----
 local function buildFrame()
     frame = CreateFrame("Frame", "AchievementTrackerFrame", UIParent, "BasicFrameTemplateWithInset")
-    frame:SetSize(740, 600)
+    frame:SetSize(660, 600)
     frame:SetPoint("CENTER")
     frame:SetMovable(true)
     frame:EnableMouse(true)
