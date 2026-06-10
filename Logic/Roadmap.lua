@@ -161,20 +161,22 @@ local function playerZoneCandidates()
             guard = guard + 1
             local info = C_Map.GetMapInfo(mid)
             if not info then break end
-            if info.mapType and info.mapType <= 1 then break end  -- World/Cosmic: para
-            add(info.name)                                        -- zona ... ate o continente
-            if info.mapType == 3 then addChildInstances(mid) end  -- so as dungeons DA zona
-            if info.mapType == 2 then break end                   -- continente incluido, para
+            -- Para no CONTINENTE (mapType 2) SEM inclui-lo: senao o nome do continente
+            -- (ex.: "Shadowlands") casaria a expansao inteira (Maldraxxus, Revendreth...).
+            -- Queremos so o MAPA atual (zona) + subzonas + as dungeons daquela zona.
+            if info.mapType and info.mapType <= 2 then break end
+            add(info.name)
+            if info.mapType == 3 then addChildInstances(mid) end  -- dungeons DA zona atual
             mid = info.parentMapID
         end
     end
     return names
 end
 
--- Strings da conquista que podem citar a zona. A API de conquistas nao da uma "zona"
--- por conquista, entao usamos os melhores sinais disponiveis: o `zone` curado (quando
--- houver), a SUBCATEGORIA (que costuma ser a zona/continente, ex.: "Dragon Isles",
--- "Kalimdor") e o proprio NOME (ex.: "Explore Tanaris", "Nazjatar Diver").
+-- Strings da conquista que podem citar a ZONA atual (mapa, nao expansao). A API nao da
+-- uma "zona" por conquista, entao usamos: o `zone`/coords curado e o proprio NOME
+-- (ex.: "Explore Maldraxxus", "Nazjatar Diver"). NAO usamos a subcategoria: ela costuma
+-- ser a expansao inteira (ex.: "Shadowlands"), o que casaria zonas vizinhas erradas.
 local function itemZoneStrings(item)
     local z = {}
     local e = item.entry
@@ -182,7 +184,6 @@ local function itemZoneStrings(item)
         if e.zone then z[#z + 1] = e.zone end
         if e.coords and e.coords.zone then z[#z + 1] = e.coords.zone end
     end
-    if item.subcategory and item.subcategory ~= "" then z[#z + 1] = item.subcategory end
     if item.name and item.name ~= "" then z[#z + 1] = item.name end
     return z
 end
