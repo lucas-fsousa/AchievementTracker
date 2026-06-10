@@ -45,7 +45,7 @@ jobs:
           # e isso da uma URL estavel
           # (.../releases/latest/download/AchievementTracker.zip).
           mkdir -p dist/AchievementTracker
-          cp -r AchievementTracker.toc Core Data Logic UI LICENSE README.md dist/AchievementTracker/
+          cp -r AchievementTracker.toc Core Data Logic UI LICENSE README.md README.pt-BR.md dist/AchievementTracker/
           (cd dist && zip -rq AchievementTracker.zip AchievementTracker)
           ls -la dist
 

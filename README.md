@@ -4,6 +4,8 @@
 
 ### A roadmap of the achievements you're still missing — sorted from *easy, do-it-solo-right-now* to *needs-a-group-or-weeks-of-grind*.
 
+**Language:** **English** · [Português (BR)](README.pt-BR.md)
+
 ![Game](https://img.shields.io/badge/WoW-Midnight%2012.0.5-8B0000)
 ![Interface](https://img.shields.io/badge/Interface-120005-444)
 ![Dependencies](https://img.shields.io/badge/dependencies-none-2ea44f)
@@ -31,6 +33,27 @@ curation**. For every achievement you're missing it answers:
 
 The roadmap then shows the **easy wins first** — what you can clear quickly and solo —
 and pushes coordination-heavy or marathon goals to the bottom.
+
+---
+
+## 📸 Screenshots
+
+> _Screenshots are being captured — see [`images/`](images/) for the shot list. Once the
+> PNGs are dropped in, uncomment the lines below._
+
+<!-- screenshot: uncomment after adding the PNGs to images/
+![The roadmap window](images/roadmap.png)
+*The roadmap — your missing achievements, easiest/solo first, each with its difficulty tier and progress.*
+
+| | |
+|:---:|:---:|
+| ![Tier badges](images/tiers.png) | ![A row explained](images/row.png) |
+| **Difficulty tiers** — Easy·Solo → Grind → Group → Hard/RNG | Name + tier, dimensions, and criteria progress |
+| ![Detail panel](images/detail-panel.png) | ![Filters](images/filters.png) |
+| Click a row → criteria checklist + prerequisites | Filter by category / subcategory / expansion + toggles |
+
+![Minimap button](images/minimap.png)
+-->
 
 ---
 
@@ -105,15 +128,15 @@ Open the window from the **minimap button** or with a slash command:
 
 ## 🗺️ Project status
 
-AchievementTracker is in **early development** — the skeleton (this release) mirrors
-MountTracker's architecture. The next phase is **curation**: reading Wowhead to classify
-achievements by difficulty, expansion by expansion / category by category.
+AchievementTracker is **actively developed** and already covers the whole game.
 
-- [x] Skeleton: scanner, difficulty model, roadmap ordering, UI, minimap, slash commands
-- [x] Curated difficulty schema + validator + CI/release pipeline
-- [ ] Real curated difficulty overlay across categories (Exploration, Holiday, Dungeons…)
-- [ ] Curation queue tool (`tools/audit_achievements`) over a `/achtrack dump`
-- [ ] Heuristic difficulty *suggestions* from comments (to review, never as truth)
+- [x] Scanner, difficulty model, workload-aware scoring, roadmap ordering
+- [x] Filters (category → subcategory, expansion, current zone) + Solo/Completed/Unobtainable toggles
+- [x] Auto-detected meta prerequisites (shows what blocks a meta, and surfaces it once all prereqs are done)
+- [x] Curated difficulty overlay across **every top category** with missing achievements (1800+ entries)
+- [x] Curation toolkit (polite cached Wowhead scraping) + validator + CI/release pipeline
+- [ ] Fine-grained manual review of specific classifications
+- [ ] Marking genuinely-removed Feats of Strength as unobtainable
 
 ---
 
