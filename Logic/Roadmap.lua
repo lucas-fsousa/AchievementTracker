@@ -134,10 +134,11 @@ function Roadmap.Build(onDone)
     return Roadmap.BuildAsync(onDone)
 end
 
--- ---- Filtro de zona atual (espelha o MountTracker) ----
+-- ---- Filtro de zona atual ----
 
-local DUNGEON_MAPTYPE = (Enum and Enum.UIMapType and Enum.UIMapType.Dungeon) or 4
-
+-- Nomes que contam como "zona atual": o mapa onde o jogador esta + seus DESCENDENTES
+-- (subzonas/sub-areas). Sempre PAI -> FILHO: nunca subimos para o mapa pai, senao
+-- entrariam zonas irmas (ex.: em Maldraxxus apareceria Revendreth via continente).
 local function playerZoneCandidates()
     local names, seen = {}, {}
     local function add(t)
@@ -146,28 +147,18 @@ local function playerZoneCandidates()
             if not seen[l] then seen[l] = true; names[#names + 1] = l end
         end
     end
-    local function addChildInstances(mid)
-        if not (mid and C_Map and C_Map.GetMapChildrenInfo) then return end
-        local kids = C_Map.GetMapChildrenInfo(mid, DUNGEON_MAPTYPE, true)
-        if kids then for _, k in ipairs(kids) do add(k.name) end end
-    end
+    -- A zona/subzona atual pelo texto (cobre o caso comum direto).
     add(GetSubZoneText and GetSubZoneText())
     add(GetZoneText and GetZoneText())
     add(GetRealZoneText and GetRealZoneText())
+    -- O mapa atual + todos os descendentes (subzonas), descendo a arvore.
     if C_Map and C_Map.GetBestMapForUnit then
         local mid = C_Map.GetBestMapForUnit("player")
-        local guard = 0
-        while mid and guard < 12 do
-            guard = guard + 1
-            local info = C_Map.GetMapInfo(mid)
-            if not info then break end
-            -- Para no CONTINENTE (mapType 2) SEM inclui-lo: senao o nome do continente
-            -- (ex.: "Shadowlands") casaria a expansao inteira (Maldraxxus, Revendreth...).
-            -- Queremos so o MAPA atual (zona) + subzonas + as dungeons daquela zona.
-            if info.mapType and info.mapType <= 2 then break end
-            add(info.name)
-            if info.mapType == 3 then addChildInstances(mid) end  -- dungeons DA zona atual
-            mid = info.parentMapID
+        local info = mid and C_Map.GetMapInfo(mid)
+        if info then add(info.name) end
+        if mid and C_Map.GetMapChildrenInfo then
+            local kids = C_Map.GetMapChildrenInfo(mid, nil, true)  -- todos os descendentes
+            if kids then for _, k in ipairs(kids) do add(k.name) end end
         end
     end
     return names
