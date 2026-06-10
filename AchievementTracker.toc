@@ -34,6 +34,8 @@ Data\Achievements_WorldEvents.lua
 Data\Achievements_PetBattles.lua
 Data\Achievements_Collections.lua
 Data\Achievements_ExpansionFeatures.lua
+Data\Achievements_Delves.lua
+Data\Achievements_Housing.lua
 Data\Achievements_FeatsOfStrength.lua
 Data\Achievements_Legacy.lua
 
