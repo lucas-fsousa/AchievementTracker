@@ -299,7 +299,7 @@ end
 -- ---- Janela (lazy, na primeira abertura) ----
 local function buildFrame()
     frame = CreateFrame("Frame", "AchievementTrackerFrame", UIParent, "BasicFrameTemplateWithInset")
-    frame:SetSize(560, 600)
+    frame:SetSize(620, 600)
     frame:SetPoint("CENTER")
     frame:SetMovable(true)
     frame:EnableMouse(true)
@@ -379,14 +379,9 @@ local function buildFrame()
         function() return ns.DB.Settings().expansionFilter or "All" end,
         function(v) ns.DB.Settings().expansionFilter = v end)
 
-    frame.ddZone = valueDropdown("AchievementTrackerZoneDropdown", "Zone:", 288, -52, 120,
-        function()
-            return { { label = "All zones", value = "All" }, { label = "Current zone", value = "Current" } }
-        end,
-        function() return ns.DB.Settings().zoneFilter or "All" end,
-        function(v) ns.DB.Settings().zoneFilter = v end)
-
-    -- Linha 3: Checkboxes de toggle (Solo only / Show completed / Show unobtainable).
+    -- Linha 3: Checkboxes de toggle (Solo only / Show completed / Show unobtainable /
+    -- Only current zone). "Current zone" virou checkbox (em vez de dropdown) -> liga/
+    -- desliga o filtro de zona atual via settings.zoneFilter ("Current"/"All").
     local function checkbox(x, label, getter, setter)
         local cb = CreateFrame("CheckButton", nil, frame, "UICheckButtonTemplate")
         cb:SetPoint("TOPLEFT", x, -78)
@@ -408,6 +403,9 @@ local function buildFrame()
     frame.cbUnobt = checkbox(310, "Show unobtainable",
         function() return ns.DB.Settings().showUnobtainable end,
         function(v) ns.DB.Settings().showUnobtainable = v end)
+    frame.cbZone = checkbox(460, "Only current zone",
+        function() return (ns.DB.Settings().zoneFilter or "All") == "Current" end,
+        function(v) ns.DB.Settings().zoneFilter = v and "Current" or "All" end)
 
     -- Scroll virtualizado (FauxScrollFrame).
     scroll = CreateFrame("ScrollFrame", "AchievementTrackerScrollFrame", frame, "FauxScrollFrameTemplate")
@@ -469,6 +467,7 @@ function UI.Refresh()
     if frame.cbSolo then frame.cbSolo:SetChecked(frame.cbSolo._getter()) end
     if frame.cbCompleted then frame.cbCompleted:SetChecked(frame.cbCompleted._getter()) end
     if frame.cbUnobt then frame.cbUnobt:SetChecked(frame.cbUnobt._getter()) end
+    if frame.cbZone then frame.cbZone:SetChecked(frame.cbZone._getter()) end
 
     local s = ns.DB.Settings()
     local cf = s.categoryFilter or "All"
@@ -477,8 +476,6 @@ function UI.Refresh()
     UIDropDownMenu_SetText(frame.ddSub, sf == "All" and "All subcategories" or sf)
     local ef = s.expansionFilter or "All"
     UIDropDownMenu_SetText(frame.ddExp, ef == "All" and "All expansions" or ef)
-    local zf = s.zoneFilter or "All"
-    UIDropDownMenu_SetText(frame.ddZone, zf == "Current" and "Current zone" or "All zones")
 end
 
 function UI.RefreshTop()
