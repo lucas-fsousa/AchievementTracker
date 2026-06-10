@@ -1759,3 +1759,60 @@ ns.Data.Register("Pet Battles", {
         wowhead = "https://www.wowhead.com/achievement=13695",
     },
 })
+
+ns.Data.Register("Pet Battles", {
+    -- Elemental Battler of Undermine
+    [41545] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=41545",
+    },
+    -- Flying Battler of Undermine
+    [41546] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=41546",
+    },
+    -- Humanoid Battler of Undermine
+    [41547] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=41547",
+    },
+    -- Magic Battler of Undermine
+    [41548] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=41548",
+    },
+    -- Mechanical Battler of Undermine
+    [41549] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=41549",
+    },
+    -- Undead Battler of Undermine
+    [41550] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=41550",
+    },
+})

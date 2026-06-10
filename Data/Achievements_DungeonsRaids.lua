@@ -3365,3 +3365,71 @@ ns.Data.Register("Dungeons & Raids", {
         wowhead = "https://www.wowhead.com/achievement=62406",
     },
 })
+
+ns.Data.Register("Dungeons & Raids", {
+    -- Goliath Offline
+    [14331] = {
+        group   = "party",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "moderate",
+        wowhead = "https://www.wowhead.com/achievement=14331",
+    },
+    -- ExSPEARiential
+    [14323] = {
+        group   = "party",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 8,
+        wowhead = "https://www.wowhead.com/achievement=14323",
+    },
+    -- I Can See My House From Here
+    [14327] = {
+        group   = "party",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 3,
+        wowhead = "https://www.wowhead.com/achievement=14327",
+    },
+    -- Fresh Meat!
+    [14607] = {
+        group   = "party",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        wowhead = "https://www.wowhead.com/achievement=14607",
+    },
+    -- Heroic: Darkflame Cleft
+    [40428] = {
+        group   = "party",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=40428",
+    },
+    -- Heroic: Priory of the Sacred Flame
+    [40592] = {
+        group   = "party",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=40592",
+    },
+    -- Heroic: The Rookery
+    [40637] = {
+        group   = "party",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=40637",
+    },
+})

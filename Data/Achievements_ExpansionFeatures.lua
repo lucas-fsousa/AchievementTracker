@@ -1424,3 +1424,1567 @@ ns.Data.Register("Covenant Sanctums", {
         wowhead = "https://www.wowhead.com/achievement=14682",
     },
 })
+
+ns.Data.Register("Expansion Features (rest)", {
+    -- Pony Up!
+    [3736] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 180,
+        wowhead = "https://www.wowhead.com/achievement=3736",
+    },
+    -- The Sword in the Skull
+    [4596] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        wowhead = "https://www.wowhead.com/achievement=4596",
+    },
+    -- Tol Barad Victory
+    [5412] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Cataclysm",
+        wowhead = "https://www.wowhead.com/achievement=5412",
+    },
+    -- Just Another Day in Tol Barad
+    [5719] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Cataclysm",
+        wowhead = "https://www.wowhead.com/achievement=5719",
+    },
+    -- Tower Plower
+    [5415] = {
+        group   = "solo",
+        effort  = "multi-session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 122,
+        expansion = "Cataclysm",
+        wowhead = "https://www.wowhead.com/achievement=5415",
+    },
+    -- Towers of Power
+    [5488] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 60,
+        expansion = "Cataclysm",
+        wowhead = "https://www.wowhead.com/achievement=5488",
+    },
+    -- Tol Barad Saboteur
+    [5487] = {
+        group   = "solo",
+        effort  = "multi-session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 180,
+        expansion = "Cataclysm",
+        wowhead = "https://www.wowhead.com/achievement=5487",
+    },
+    -- Tol Barad All-Star
+    [5486] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 12,
+        expansion = "Cataclysm",
+        wowhead = "https://www.wowhead.com/achievement=5486",
+    },
+    -- Master of Tol Barad
+    [5490] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Cataclysm",
+        wowhead = "https://www.wowhead.com/achievement=5490",
+    },
+    -- Pub Crawl
+    [7385] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 5,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7385",
+    },
+    -- Scenaturday
+    [7509] = {
+        group   = "solo",
+        effort  = "multi-session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 276,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7509",
+    },
+    -- The Perfect Pour
+    [7261] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=7261",
+    },
+    -- Cannonballer
+    [7990] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=7990",
+    },
+    -- We've Been Dancin'
+    [7993] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=7993",
+    },
+    -- Which Came First?
+    [7991] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=7991",
+    },
+    -- In the Eye of the Tiger
+    [7272] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        wowhead = "https://www.wowhead.com/achievement=7272",
+    },
+    -- Heed the Weed
+    [8329] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=8329",
+    },
+    -- Binan Village All-Star
+    [6931] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 30,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6931",
+    },
+    -- Yaungolian Barbecue
+    [6930] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        wowhead = "https://www.wowhead.com/achievement=6930",
+    },
+    -- Fight Anger with Anger
+    [8368] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        wowhead = "https://www.wowhead.com/achievement=8368",
+    },
+    -- No Egg Left Behind
+    [7987] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=7987",
+    },
+    -- Watery Grave
+    [7984] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 10,
+        wowhead = "https://www.wowhead.com/achievement=7984",
+    },
+    -- You Mean That Wasn't a Void Zone?
+    [7986] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=7986",
+    },
+    -- Waste Not, Want Not
+    [8015] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 5,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=8015",
+    },
+    -- Kite Fight
+    [7529] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7529",
+    },
+    -- The Keg Runner
+    [7232] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 1,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7232",
+    },
+    -- Monkey See, Monkey Kill
+    [7248] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 5,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7248",
+    },
+    -- Keep those Bombs Away! (From Me)
+    [8347] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 5,
+        wowhead = "https://www.wowhead.com/achievement=8347",
+    },
+    -- Proving Yourself: Endless Damage (Wave 20)
+    [9576] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=9576",
+    },
+    -- Proving Yourself: Bronze Tank
+    [9578] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "WoD",
+        wowhead = "https://www.wowhead.com/achievement=9578",
+    },
+    -- Proving Yourself: Bronze Healer
+    [9584] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "WoD",
+        wowhead = "https://www.wowhead.com/achievement=9584",
+    },
+    -- You're Doing it Wrong
+    [9590] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "high",
+        wowhead = "https://www.wowhead.com/achievement=9590",
+    },
+    -- Invasion? What Invasion?
+    [9543] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "low",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 3,
+        expansion = "WoD",
+        wowhead = "https://www.wowhead.com/achievement=9543",
+    },
+    -- Ruined the Ruins
+    [12592] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=12592",
+    },
+    -- Bane of the Chain
+    [13098] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13098",
+    },
+    -- Mire Marauder
+    [13106] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13106",
+    },
+    -- Clash at the Cay
+    [13102] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13102",
+    },
+    -- War for the Wilds
+    [13114] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13114",
+    },
+    -- Skittering Smashed
+    [13110] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13110",
+    },
+    -- Reef Madness
+    [13115] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13115",
+    },
+    -- Jorundall Justice
+    [13399] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13399",
+    },
+    -- Havenswood
+    [13396] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13396",
+    },
+    -- Havenswood Hero
+    [13400] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13400",
+    },
+    -- Mythic: Crestfall
+    [13579] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13579",
+    },
+    -- Crestfallen
+    [13580] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13580",
+    },
+    -- Snowblossom Scrapper
+    [13584] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13584",
+    },
+    -- Island Conqueror
+    [13122] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13122",
+    },
+    -- Island Slayer
+    [13141] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13141",
+    },
+    -- Expert Expeditioner
+    [12595] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=12595",
+    },
+    -- Bayside Brawler
+    [12597] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=12597",
+    },
+    -- Sucker Punch
+    [13129] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13129",
+    },
+    -- Azerite Admiral
+    [13125] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13125",
+    },
+    -- Tell Me A Tale
+    [13127] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 15,
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13127",
+    },
+    -- Helping Hand
+    [13132] = {
+        group   = "solo",
+        effort  = "multi-session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 600,
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13132",
+    },
+    -- Expedition Leader
+    [13134] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13134",
+    },
+    -- Heroic: War is Hell
+    [13735] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 6,
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13735",
+    },
+    -- Strike Fast
+    [12876] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=12876",
+    },
+    -- Leader of Troops
+    [12878] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=12878",
+    },
+    -- Tour of War
+    [12879] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=12879",
+    },
+    -- Heroic: Tour of War
+    [13738] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=13738",
+    },
+    -- An Eventful Battle
+    [12874] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 15,
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=12874",
+    },
+    -- Heroic: War for the Shore
+    [14149] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=14149",
+    },
+    -- Under Cover of Darkness
+    [13301] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13301",
+    },
+    -- Recruitment Officer
+    [13307] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13307",
+    },
+    -- Deforester
+    [13309] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 2,
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13309",
+    },
+    -- Full Heart, Can't Lose
+    [40958] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=40958",
+    },
+    -- Pure of Heart
+    [13998] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=13998",
+    },
+    -- Essence Essentials
+    [13772] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=13772",
+    },
+    -- My Heart Container is Full
+    [13777] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13777",
+    },
+    -- Reeking of Visions
+    [14143] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=14143",
+    },
+    -- Unwavering Resolve
+    [14060] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=14060",
+    },
+    -- We Have the Technology
+    [14061] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=14061",
+    },
+    -- The Even More Horrific Vision of Stormwind
+    [14064] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 3,
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=14064",
+    },
+    -- Horrific Vision of Orgrimmar
+    [14063] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=14063",
+    },
+    -- Horrific Masquerade
+    [14162] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 2,
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=14162",
+    },
+    -- Masked Soliloquy
+    [14165] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 2,
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=14165",
+    },
+    -- Memento Mori
+    [14171] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=14171",
+    },
+    -- Phanatical
+    [14501] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 6,
+        expansion = "Shadowlands",
+        wowhead = "https://www.wowhead.com/achievement=14501",
+    },
+    -- Master of Torment
+    [15092] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Shadowlands",
+        wowhead = "https://www.wowhead.com/achievement=15092",
+    },
+    -- Avenge Me!
+    [15093] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 2,
+        wowhead = "https://www.wowhead.com/achievement=15093",
+    },
+    -- Tower Ranger
+    [15324] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 80,
+        expansion = "Shadowlands",
+        wowhead = "https://www.wowhead.com/achievement=15324",
+    },
+    -- A Farewell to Arms
+    [40953] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 300,
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=40953",
+    },
+    -- Back from the Beyond
+    [20501] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 20,
+        wowhead = "https://www.wowhead.com/achievement=20501",
+    },
+    -- A World Awoken
+    [19458] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 90,
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19458",
+    },
+    -- Worldsoul-Searching
+    [61451] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "high",
+        wowhead = "https://www.wowhead.com/achievement=61451",
+    },
+    -- Now THIS is Dragon Racing!
+    [19478] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "low",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19478",
+    },
+    -- Kalimdor: Bronze
+    [17712] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=17712",
+    },
+    -- Kalimdor Advanced: Bronze
+    [17715] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=17715",
+    },
+    -- Kalimdor Reverse: Bronze
+    [17718] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=17718",
+    },
+    -- Kalimdor Racing Completionist
+    [17721] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "low",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=17721",
+    },
+    -- Waking Shores Challenge: Bronze
+    [18748] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "high",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18748",
+    },
+    -- Ohn'ahran Plains Challenge: Bronze
+    [18754] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18754",
+    },
+    -- Azure Span Challenge: Bronze
+    [18757] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18757",
+    },
+    -- Thaldraszus Challenge: Bronze
+    [18760] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18760",
+    },
+    -- Forbidden Reach Challenge: Bronze
+    [18779] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18779",
+    },
+    -- Zaralek Cavern Challenge: Bronze
+    [18786] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18786",
+    },
+    -- Dragonriding Challenge: Dragon Isles: Bronze
+    [18790] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18790",
+    },
+    -- Eastern Kingdoms: Bronze
+    [18566] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18566",
+    },
+    -- Eastern Kingdoms Advanced: Bronze
+    [18569] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18569",
+    },
+    -- Eastern Kingdoms Reverse: Bronze
+    [18572] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18572",
+    },
+    -- Eastern Kingdoms Racing Completionist
+    [18939] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18939",
+    },
+    -- Outland: Bronze
+    [19092] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19092",
+    },
+    -- Outland Advanced: Bronze
+    [19099] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19099",
+    },
+    -- Outland Reverse: Bronze
+    [19102] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19102",
+    },
+    -- Outland Racing Completionist
+    [19105] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19105",
+    },
+    -- Emerald Dream Advanced: Bronze
+    [19112] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19112",
+    },
+    -- Emerald Dream Reverse: Bronze
+    [19115] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19115",
+    },
+    -- Emerald Dream Racing Completionist
+    [19118] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19118",
+    },
+    -- Emerald Dream Challenge: Bronze
+    [19121] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19121",
+    },
+    -- Emerald Dream Reverse Challenge: Bronze
+    [19124] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19124",
+    },
+    -- Emerald Dream Challenge Racing Completionist
+    [19127] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19127",
+    },
+    -- Northrend: Bronze
+    [19674] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19674",
+    },
+    -- Northrend Advanced: Bronze
+    [19677] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19677",
+    },
+    -- Northrend Reverse: Bronze
+    [19682] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19682",
+    },
+    -- Northrend Racing Completionist
+    [19721] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=19721",
+    },
+    -- Undermine Skyrocketing: Bronze
+    [40936] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=40936",
+    },
+    -- Undermine Breaknecking: Bronze
+    [41081] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 15,
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=41081",
+    },
+    -- Reeking of Visions
+    [41928] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=41928",
+    },
+    -- Mastering the Visions
+    [41966] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 3,
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=41966",
+    },
+    -- We Have the Memories
+    [41725] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=41725",
+    },
+    -- Horrific Vision of Stormwind
+    [41853] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=41853",
+    },
+    -- Horrific Vision of Orgrimmar
+    [41875] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=41875",
+    },
+    -- Incremental Progress
+    [41873] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=41873",
+    },
+    -- Horrific Masquerade
+    [41889] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=41889",
+    },
+    -- Masked Soliloquy
+    [41857] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=41857",
+    },
+    -- Thanks for the Mementos
+    [41859] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=41859",
+    },
+    -- Lorewalking: Blade's Bane
+    [42188] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=42188",
+    },
+    -- Lorewalking: The Lich King
+    [42189] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=42189",
+    },
+    -- Lorewalking: Ethereal Wisdom
+    [42187] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 38,
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=42187",
+    },
+    -- Lorewalking: The Elves of Quel'Thalas
+    [61467] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 10,
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=61467",
+    },
+    -- 'Tis But A Scratch
+    [62403] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 13,
+        wowhead = "https://www.wowhead.com/achievement=62403",
+    },
+    -- Prey: Normal Mode II
+    [61386] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        wowhead = "https://www.wowhead.com/achievement=61386",
+    },
+    -- Prey: Hard Mode II
+    [61388] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=61388",
+    },
+    -- Prey: Nightmare Mode II
+    [61391] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=61391",
+    },
+    -- Gotta Hunt Them All
+    [62383] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        wowhead = "https://www.wowhead.com/achievement=62383",
+    },
+    -- You're Trapped In Here With Me
+    [62138] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62138",
+    },
+    -- Preying For Midnight
+    [62351] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62351",
+    },
+    -- Prey: Mad Magisters (Hard)
+    [62144] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62144",
+    },
+    -- Prey: Insane Inventors (Hard)
+    [62153] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62153",
+    },
+    -- Prey: Ethereal Assassins (Hard)
+    [62155] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "high",
+        wowhead = "https://www.wowhead.com/achievement=62155",
+    },
+    -- Prey: Sadistic Shamans (Hard)
+    [62157] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62157",
+    },
+    -- Prey: The Fallen Farstriders (Hard)
+    [62158] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62158",
+    },
+    -- Prey: Breaking the Blade (Hard)
+    [62166] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62166",
+    },
+    -- Prey: Insane Inventors (Nightmare)
+    [62168] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62168",
+    },
+    -- Prey: Anger Management (Nightmare)
+    [62174] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62174",
+    },
+    -- Prey: Sadistic Shamans (Nightmare)
+    [62175] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62175",
+    },
+    -- Prey: Bloody Green Thumbs (Nightmare)
+    [62177] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62177",
+    },
+    -- Prey: Blinded By The Light (Nightmare)
+    [62178] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62178",
+    },
+    -- Prey: Dominating the Void (Nightmare)
+    [62180] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62180",
+    },
+    -- Prey: No Rest for the Wretched (Nightmare)
+    [62182] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62182",
+    },
+    -- Void Bane: Eversong
+    [62509] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62509",
+    },
+    -- Void Bane: Zul'Aman
+    [62512] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62512",
+    },
+    -- Cosmic Slayer
+    [62570] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 2,
+        wowhead = "https://www.wowhead.com/achievement=62570",
+    },
+    -- Everybody Gets One
+    [62571] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        wowhead = "https://www.wowhead.com/achievement=62571",
+    },
+    -- Battery Bombardment
+    [62572] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62572",
+    },
+    -- Traces in the Dark
+    [62569] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62569",
+    },
+    -- Neighborhood Ritual Watch: Daggerspine Point
+    [62538] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62538",
+    },
+    -- Neighborhood Ritual Team: Daggerspine Point
+    [62539] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62539",
+    },
+})
