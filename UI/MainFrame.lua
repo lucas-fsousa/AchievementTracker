@@ -299,7 +299,7 @@ end
 -- ---- Janela (lazy, na primeira abertura) ----
 local function buildFrame()
     frame = CreateFrame("Frame", "AchievementTrackerFrame", UIParent, "BasicFrameTemplateWithInset")
-    frame:SetSize(880, 600)
+    frame:SetSize(740, 600)
     frame:SetPoint("CENTER")
     frame:SetMovable(true)
     frame:EnableMouse(true)
@@ -340,7 +340,7 @@ local function buildFrame()
     end
 
     -- Linha 1: Categoria (topo) + Subcategoria (filhas) + Expansao, lado a lado.
-    frame.ddCat = valueDropdown("AchievementTrackerCatDropdown", 130,
+    frame.ddCat = valueDropdown("AchievementTrackerCatDropdown", 100,
         function()
             local opts = { { label = "All categories", value = "All" } }
             for _, cat in ipairs(ns.Logic.Roadmap.Categories()) do
@@ -356,7 +356,7 @@ local function buildFrame()
         end)
     frame.ddCat:SetPoint("TOPLEFT", 2, -28)
 
-    frame.ddSub = valueDropdown("AchievementTrackerSubDropdown", 130,
+    frame.ddSub = valueDropdown("AchievementTrackerSubDropdown", 110,
         function()
             local opts = { { label = "All subcategories", value = "All" } }
             for _, sub in ipairs(ns.Logic.Roadmap.Subcategories(ns.DB.Settings().categoryFilter)) do
@@ -366,9 +366,9 @@ local function buildFrame()
         end,
         function() return ns.DB.Settings().subcategoryFilter or "All" end,
         function(v) ns.DB.Settings().subcategoryFilter = v end)
-    frame.ddSub:SetPoint("LEFT", frame.ddCat, "RIGHT", -12, 0)
+    frame.ddSub:SetPoint("LEFT", frame.ddCat, "RIGHT", -18, 0)
 
-    frame.ddExp = valueDropdown("AchievementTrackerExpDropdown", 120,
+    frame.ddExp = valueDropdown("AchievementTrackerExpDropdown", 90,
         function()
             local opts = { { label = "All expansions", value = "All" } }
             for _, e in ipairs(ns.EXPANSIONS) do opts[#opts + 1] = { label = e, value = e } end
@@ -376,9 +376,9 @@ local function buildFrame()
         end,
         function() return ns.DB.Settings().expansionFilter or "All" end,
         function(v) ns.DB.Settings().expansionFilter = v end)
-    frame.ddExp:SetPoint("LEFT", frame.ddSub, "RIGHT", -12, 0)
+    frame.ddExp:SetPoint("LEFT", frame.ddSub, "RIGHT", -18, 0)
 
-    frame.ddTier = valueDropdown("AchievementTrackerTierDropdown", 120,
+    frame.ddTier = valueDropdown("AchievementTrackerTierDropdown", 105,
         function()
             local opts = { { label = "All difficulties", value = "All" } }
             for _, t in ipairs(ns.TIER_ORDER) do
@@ -388,7 +388,7 @@ local function buildFrame()
         end,
         function() return ns.DB.Settings().tierFilter or "All" end,
         function(v) ns.DB.Settings().tierFilter = v end)
-    frame.ddTier:SetPoint("LEFT", frame.ddExp, "RIGHT", -12, 0)
+    frame.ddTier:SetPoint("LEFT", frame.ddExp, "RIGHT", -18, 0)
 
     -- Linha 3: Checkboxes de toggle (Solo only / Show completed / Show unobtainable /
     -- Only current zone). "Current zone" virou checkbox (em vez de dropdown) -> liga/
