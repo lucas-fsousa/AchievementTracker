@@ -299,7 +299,7 @@ end
 -- ---- Janela (lazy, na primeira abertura) ----
 local function buildFrame()
     frame = CreateFrame("Frame", "AchievementTrackerFrame", UIParent, "BasicFrameTemplateWithInset")
-    frame:SetSize(620, 600)
+    frame:SetSize(700, 600)
     frame:SetPoint("CENTER")
     frame:SetMovable(true)
     frame:EnableMouse(true)
@@ -317,14 +317,11 @@ local function buildFrame()
     frame.title:SetPoint("TOP", 0, -5)
     frame.title:SetText("AchievementTracker  -  roadmap")
 
-    -- Dropdown de valor generico (rotulo + UIDropDownMenu). `optionsFn` devolve uma
-    -- lista de { label=, value= }; getFn/setFn leem/gravam o filtro nas settings.
-    local function valueDropdown(name, labelText, x, y, width, optionsFn, getFn, setFn)
-        local lbl = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-        lbl:SetPoint("TOPLEFT", x, y)
-        lbl:SetText(labelText)
+    -- Dropdown de valor generico (UIDropDownMenu, sem rotulo separado -- o texto
+    -- selecionado ja diz "All categories/subcategories/expansions"). O chamador
+    -- posiciona o dd. `optionsFn` devolve { label=, value= }; getFn/setFn leem/gravam.
+    local function valueDropdown(name, width, optionsFn, getFn, setFn)
         local dd = CreateFrame("Frame", name, frame, "UIDropDownMenuTemplate")
-        dd:SetPoint("LEFT", lbl, "RIGHT", -6, -2)
         UIDropDownMenu_SetWidth(dd, width)
         UIDropDownMenu_Initialize(dd, function()
             for _, opt in ipairs(optionsFn()) do
@@ -342,8 +339,8 @@ local function buildFrame()
         return dd
     end
 
-    -- Linha 1: Categoria (topo) + Subcategoria (filhas da categoria selecionada).
-    frame.ddCat = valueDropdown("AchievementTrackerCatDropdown", "Category:", 14, -28, 120,
+    -- Linha 1: Categoria (topo) + Subcategoria (filhas) + Expansao, lado a lado.
+    frame.ddCat = valueDropdown("AchievementTrackerCatDropdown", 130,
         function()
             local opts = { { label = "All categories", value = "All" } }
             for _, cat in ipairs(ns.Logic.Roadmap.Categories()) do
@@ -357,8 +354,9 @@ local function buildFrame()
             ns.DB.Settings().categoryFilter = v
             ns.DB.Settings().subcategoryFilter = "All"
         end)
+    frame.ddCat:SetPoint("TOPLEFT", 2, -28)
 
-    frame.ddSub = valueDropdown("AchievementTrackerSubDropdown", "Subcategory:", 288, -28, 120,
+    frame.ddSub = valueDropdown("AchievementTrackerSubDropdown", 130,
         function()
             local opts = { { label = "All subcategories", value = "All" } }
             for _, sub in ipairs(ns.Logic.Roadmap.Subcategories(ns.DB.Settings().categoryFilter)) do
@@ -368,9 +366,9 @@ local function buildFrame()
         end,
         function() return ns.DB.Settings().subcategoryFilter or "All" end,
         function(v) ns.DB.Settings().subcategoryFilter = v end)
+    frame.ddSub:SetPoint("LEFT", frame.ddCat, "RIGHT", -12, 0)
 
-    -- Linha 2: Expansao + Zona.
-    frame.ddExp = valueDropdown("AchievementTrackerExpDropdown", "Expansion:", 14, -52, 120,
+    frame.ddExp = valueDropdown("AchievementTrackerExpDropdown", 120,
         function()
             local opts = { { label = "All expansions", value = "All" } }
             for _, e in ipairs(ns.EXPANSIONS) do opts[#opts + 1] = { label = e, value = e } end
@@ -378,13 +376,14 @@ local function buildFrame()
         end,
         function() return ns.DB.Settings().expansionFilter or "All" end,
         function(v) ns.DB.Settings().expansionFilter = v end)
+    frame.ddExp:SetPoint("LEFT", frame.ddSub, "RIGHT", -12, 0)
 
     -- Linha 3: Checkboxes de toggle (Solo only / Show completed / Show unobtainable /
     -- Only current zone). "Current zone" virou checkbox (em vez de dropdown) -> liga/
     -- desliga o filtro de zona atual via settings.zoneFilter ("Current"/"All").
     local function checkbox(x, label, getter, setter)
         local cb = CreateFrame("CheckButton", nil, frame, "UICheckButtonTemplate")
-        cb:SetPoint("TOPLEFT", x, -78)
+        cb:SetPoint("TOPLEFT", x, -64)
         local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
         lbl:SetPoint("LEFT", cb, "RIGHT", 2, 0)
         lbl:SetText(label)
@@ -409,7 +408,7 @@ local function buildFrame()
 
     -- Scroll virtualizado (FauxScrollFrame).
     scroll = CreateFrame("ScrollFrame", "AchievementTrackerScrollFrame", frame, "FauxScrollFrameTemplate")
-    scroll:SetPoint("TOPLEFT", 10, -106)
+    scroll:SetPoint("TOPLEFT", 10, -92)
     scroll:SetPoint("BOTTOMRIGHT", -30, 10)
     scroll:SetScript("OnVerticalScroll", function(self, offset)
         FauxScrollFrame_OnVerticalScroll(self, offset, ROW_STEP, UI.Refresh)
