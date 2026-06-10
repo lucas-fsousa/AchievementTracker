@@ -38,22 +38,16 @@ sozinho — e empurra pro fim o que exige coordenação ou maratona.
 
 ## 📸 Screenshots
 
-> _As capturas estão sendo feitas — veja a lista em [`images/`](images/). Depois de
-> colocar os PNGs lá, descomente as linhas abaixo._
-
-<!-- screenshot: descomente depois de adicionar os PNGs em images/
 ![A janela do roadmap](images/roadmap.png)
-*O roadmap — as conquistas que faltam, fácil/solo primeiro, cada uma com seu tier de dificuldade e progresso.*
+
+*O roadmap — as conquistas que faltam, fácil/solo primeiro, cada uma com seu badge de tier e progresso de critérios.*
 
 | | |
 |:---:|:---:|
-| ![Tiers de dificuldade](images/tiers.png) | ![Uma linha explicada](images/row.png) |
-| **Tiers de dificuldade** — Easy·Solo → Grind → Group → Hard/RNG | Nome + tier, dimensões e progresso de critérios |
-| ![Painel de detalhe](images/detail-panel.png) | ![Filtros](images/filters.png) |
-| Clique numa linha → checklist de critérios + pré-requisitos | Filtre por categoria / subcategoria / expansão + toggles |
-
-![Botão do minimapa](images/minimap.png)
--->
+| ![Uma linha explicada](images/row.png) | ![Painel de detalhe](images/detail-panel.png) |
+| Nome + badge de tier, a linha de dimensões e o progresso | Clique numa linha → pontos, dimensões e checklist de critérios |
+| ![Filtros](images/filters.png) | ![Botão do minimapa](images/minimap.png) |
+| Filtre por categoria / subcategoria / expansão / dificuldade + toggles | Botão do minimapa — arraste e clique para abrir |
 
 ---
 

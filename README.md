@@ -38,22 +38,16 @@ and pushes coordination-heavy or marathon goals to the bottom.
 
 ## 📸 Screenshots
 
-> _Screenshots are being captured — see [`images/`](images/) for the shot list. Once the
-> PNGs are dropped in, uncomment the lines below._
-
-<!-- screenshot: uncomment after adding the PNGs to images/
 ![The roadmap window](images/roadmap.png)
-*The roadmap — your missing achievements, easiest/solo first, each with its difficulty tier and progress.*
+
+*The roadmap — your missing achievements, easiest/solo first, each with its difficulty tier badge and criteria progress.*
 
 | | |
 |:---:|:---:|
-| ![Tier badges](images/tiers.png) | ![A row explained](images/row.png) |
-| **Difficulty tiers** — Easy·Solo → Grind → Group → Hard/RNG | Name + tier, dimensions, and criteria progress |
-| ![Detail panel](images/detail-panel.png) | ![Filters](images/filters.png) |
-| Click a row → criteria checklist + prerequisites | Filter by category / subcategory / expansion + toggles |
-
-![Minimap button](images/minimap.png)
--->
+| ![A row explained](images/row.png) | ![Detail panel](images/detail-panel.png) |
+| Name + tier badge, the dimensions line, and criteria progress | Click a row → points, dimensions and the criteria checklist |
+| ![Filters](images/filters.png) | ![Minimap button](images/minimap.png) |
+| Filter by category / subcategory / expansion / difficulty + toggles | Minimap button — drag it anywhere, click to open |
 
 ---
 
