@@ -2,7 +2,7 @@
 ## Title: AchievementTracker
 ## Notes: Roadmap of the easiest, solo-friendly achievements you're still missing.
 ## Author: Lucas
-## Version: 0.2.0
+## Version: 0.3.0
 ## SavedVariables: AchievementTrackerDB, AchievementTrackerDump
 ## IconTexture: Interface\Icons\Achievement_General
 ## X-Category: Achievements

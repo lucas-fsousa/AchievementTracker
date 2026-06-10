@@ -15,6 +15,30 @@ HOW TO RELEASE (see RELEASING.md):
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-06-09
+
+Full-game curation: the difficulty overlay now covers **every top category** with missing
+achievements — **1531 hand-classified entries** (up from 766).
+
+### Added
+- **Curated the remaining categories** (766 → 1531 entries): Pet Battles (180, solo
+  minigame but skill preserved — team strategy matters), Dungeons & Raids (357, group:
+  `raid` for raid subcategories, `party` for dungeons), Player vs. Player (177, group),
+  Delves (37, solo with skill preserved — difficulty tiers are real) and Housing (14,
+  solo). With these, the overlay covers all top categories that have incomplete
+  achievements on a veteran account.
+- **Two new data files** (`Achievements_Delves.lua`, `Achievements_Housing.lua`) added to
+  the `.toc`. (A brand-new file needs one client restart to load; after that `/reload`
+  is enough.)
+
+### Notes
+- Group content (Dungeons & Raids, PvP, raid metas) correctly sinks to the
+  Group/Hard tiers and the bottom of the roadmap — it never competes with the solo wins
+  at the top. The "Solo only" / "Hide group" toggles filter it out entirely.
+- Curation remains an initial automated+normalized pass per category (domain rules +
+  Wowhead comment signals). Fine-grained manual review is welcome and easy now that the
+  data is split one-file-per-category.
+
 ## [0.2.0] - 2026-06-09
 
 Curation push: **766 hand-classified achievements across 7 top categories**, plus the
@@ -120,6 +144,7 @@ commands, CI + release pipeline), with a difficulty-curation roadmap on top.
 - Difficulty curation is incremental: only Fishing is curated so far; other categories
   appear in a neutral *Uncurated* tier until classified.
 
-[Unreleased]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/lucas-fsousa/AchievementTracker/releases/tag/v0.1.0
