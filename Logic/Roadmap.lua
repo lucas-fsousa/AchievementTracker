@@ -151,6 +151,10 @@ local function playerZoneCandidates()
     add(GetSubZoneText and GetSubZoneText())
     add(GetZoneText and GetZoneText())
     add(GetRealZoneText and GetRealZoneText())
+    -- Nome da INSTANCIA quando dentro de uma (dungeon/raid). E o sinal mais confiavel
+    -- la dentro: as conquistas costumam citar a instancia na descricao (ex.: "...in
+    -- Theater of Pain..."), mesmo quando o nome da conquista e so o do boss.
+    if GetInstanceInfo then add((GetInstanceInfo())) end
     -- O mapa atual + todos os descendentes (subzonas), descendo a arvore.
     if C_Map and C_Map.GetBestMapForUnit then
         local mid = C_Map.GetBestMapForUnit("player")
@@ -164,10 +168,12 @@ local function playerZoneCandidates()
     return names
 end
 
--- Strings da conquista que podem citar a ZONA atual (mapa, nao expansao). A API nao da
--- uma "zona" por conquista, entao usamos: o `zone`/coords curado e o proprio NOME
--- (ex.: "Explore Maldraxxus", "Nazjatar Diver"). NAO usamos a subcategoria: ela costuma
--- ser a expansao inteira (ex.: "Shadowlands"), o que casaria zonas vizinhas erradas.
+-- Strings da conquista que podem citar a ZONA/INSTANCIA atual (mapa, nao expansao). A
+-- API nao da uma "zona" por conquista, entao usamos: o `zone`/coords curado, o NOME e a
+-- DESCRICAO (que quase sempre cita o local: "Defeat X in Theater of Pain", "Explore
+-- Maldraxxus"). NAO usamos a subcategoria: ela costuma ser a expansao inteira (ex.:
+-- "Shadowlands"), o que casaria zonas vizinhas erradas. Como casamos contra o nome
+-- ESPECIFICO da zona/instancia (nunca o continente), a descricao nao traz vizinhos.
 local function itemZoneStrings(item)
     local z = {}
     local e = item.entry
@@ -176,6 +182,7 @@ local function itemZoneStrings(item)
         if e.coords and e.coords.zone then z[#z + 1] = e.coords.zone end
     end
     if item.name and item.name ~= "" then z[#z + 1] = item.name end
+    if item.description and item.description ~= "" then z[#z + 1] = item.description end
     return z
 end
 
