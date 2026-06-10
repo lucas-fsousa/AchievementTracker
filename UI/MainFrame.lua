@@ -185,6 +185,15 @@ function UI.ShowDetail(item)
     if item.description and item.description ~= "" then lines[#lines + 1] = "|cffd0d0d0" .. item.description .. "|r" end
     if item.entry and item.entry.note then lines[#lines + 1] = "|cffffe39a" .. item.entry.note .. "|r" end
     if item.detail and item.detail ~= "" then lines[#lines + 1] = item.detail end
+    -- Pre-requisitos nao concluidos (meta-achievement): lista os nomes.
+    if item.gatedPending and #item.gatedPending > 0 then
+        local names = {}
+        for _, gid in ipairs(item.gatedPending) do
+            local _, nm = GetAchievementInfo(gid)
+            names[#names + 1] = "  • " .. (nm or ("#" .. tostring(gid)))
+        end
+        lines[#lines + 1] = "|cffff7777Requires:|r\n" .. table.concat(names, "\n")
+    end
     f.info:SetText(table.concat(lines, "\n"))
 
     local crit = criteriaLines(item.id)

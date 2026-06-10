@@ -25,19 +25,35 @@ local function isFeatOfStrengthName(name)
 end
 Scanner.IsFeatOfStrengthName = isFeatOfStrengthName
 
+-- Tipo de criterio "completar uma conquista" (meta-achievement). Nesse caso o assetID
+-- do criterio E o achievementID exigido -> usamos p/ derivar os pre-requisitos (gated).
+local META_CRITERIA_TYPE = 8
+
 -- Le o progresso parcial de uma conquista pelos criterios.
--- Retorna done, total, pct (0..1). CUSTOSO: so chamar para conquistas relevantes.
+-- Retorna done, total, pct (0..1), workload, gates (lista de achievementIDs pre-requisito
+-- ou nil). CUSTOSO: so chamar para conquistas relevantes.
 local function readProgress(achievementID)
     local total = (GetAchievementNumCriteria and GetAchievementNumCriteria(achievementID)) or 0
-    if not total or total == 0 then return 0, 0, 0, 0 end
+    if not total or total == 0 then return 0, 0, 0, 0, nil end
     local done = 0
     local sumQty, sumReq = 0, 0
     local workload = 0   -- "trabalho restante": passos/quantidade que ainda faltam
+    local gates        -- nil ou { achievementID, ... } (meta-achievement)
     for i = 1, total do
-        local _, _, completed, quantity, reqQuantity = GetAchievementCriteriaInfo(achievementID, i)
+        local _, ctype, completed, quantity, reqQuantity, _, _, assetID =
+            GetAchievementCriteriaInfo(achievementID, i)
+        ctype = ns.Safe.Value(ctype, 0)
+        assetID = ns.Safe.Value(assetID, 0)
         completed = ns.Safe.Value(completed, false)
         quantity = ns.Safe.Value(quantity, 0) or 0
         reqQuantity = ns.Safe.Value(reqQuantity, 0) or 0
+        -- So conta como pre-requisito se o assetID for mesmo uma conquista valida
+        -- (blindagem caso o tipo de criterio varie entre builds).
+        if ctype == META_CRITERIA_TYPE and assetID and assetID > 0
+            and GetAchievementInfo(assetID) then
+            gates = gates or {}
+            gates[#gates + 1] = assetID
+        end
         if completed then
             done = done + 1
         else
@@ -60,7 +76,7 @@ local function readProgress(achievementID)
     else
         pct = done / total
     end
-    return done, total, math.max(0, math.min(1, pct)), workload
+    return done, total, math.max(0, math.min(1, pct)), workload, gates
 end
 Scanner.ReadProgress = readProgress
 
@@ -113,9 +129,9 @@ function Scanner.MakeCandidate(catID, catName, isFoS, index, curated, readCriter
     if not (id and name) then return nil end
     completed = ns.Safe.Value(completed, false) and true or false
     local entry = curated and curated[id] or nil
-    local done, total, pct, workload = 0, 0, 0, 0
+    local done, total, pct, workload, gates = 0, 0, 0, 0, nil
     if readCriteria and not completed then
-        done, total, pct, workload = readProgress(id)
+        done, total, pct, workload, gates = readProgress(id)
     end
     local topCat, subCat = Scanner.CategorySplit(catID)
     return {
@@ -136,6 +152,7 @@ function Scanner.MakeCandidate(catID, catName, isFoS, index, curated, readCriter
         criteriaTotal = total,
         progress      = pct,
         workload      = workload,   -- passos/quantidade restantes (proxy de "demora")
+        metaGates     = gates,      -- pre-requisitos derivados da API (meta-achievement)
         expansion     = ns.ExpansionFor((catName or "") .. " " .. (name or ""),
                             entry and entry.expansion),
     }

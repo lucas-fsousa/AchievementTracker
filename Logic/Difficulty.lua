@@ -31,13 +31,18 @@ local function isCompleted(achievementID)
     return completed and true or false
 end
 
--- Quais pre-requisitos (gated) ainda nao foram concluidos.
-local function unsatisfiedGates(entry)
-    if not (entry and entry.gated) then return nil end
-    local pend = {}
-    for _, gid in ipairs(entry.gated) do
-        if not isCompleted(gid) then pend[#pend + 1] = gid end
+-- Pre-requisitos ainda nao concluidos. Junta os curados (entry.gated) com os derivados
+-- da API (meta-achievement: criterios do tipo "completar conquista"). Deduplica.
+local function unsatisfiedGates(entry, metaGates)
+    local seen, pend = {}, {}
+    local function consider(gid)
+        if gid and not seen[gid] then
+            seen[gid] = true
+            if not isCompleted(gid) then pend[#pend + 1] = gid end
+        end
     end
+    if entry and entry.gated then for _, gid in ipairs(entry.gated) do consider(gid) end end
+    if metaGates then for _, gid in ipairs(metaGates) do consider(gid) end end
     if #pend == 0 then return nil end
     return pend
 end
@@ -136,7 +141,7 @@ function Difficulty.Evaluate(cand)
         skill  = (entry and entry.skill)  or DEF.skill,
     }
 
-    local gatedPending = unsatisfiedGates(entry)
+    local gatedPending = unsatisfiedGates(entry, cand.metaGates)
     local progress = cand.progress or 0
 
     local item = {
@@ -171,9 +176,11 @@ function Difficulty.Evaluate(cand)
     item.isLongTerm = (d.effort == "long-term" or d.effort == "seasonal")
     item.dimsText = dimsText(d)
 
-    -- Status line (criteria / blocked).
+    -- Status line (criteria / blocked). gatedPending guarda os achievementIDs nao
+    -- concluidos (o painel de detalhe resolve os nomes); a linha mostra a contagem.
     if gatedPending then
-        item.detail = "blocked by: " .. table.concat(gatedPending, ", ")
+        local n = #gatedPending
+        item.detail = ("blocked by %d achievement%s"):format(n, n == 1 and "" or "s")
     elseif (cand.criteriaTotal or 0) > 0 then
         item.detail = ("%d / %d criteria"):format(cand.criteriaDone or 0, cand.criteriaTotal)
     else
