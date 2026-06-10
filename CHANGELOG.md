@@ -15,6 +15,38 @@ HOW TO RELEASE (see RELEASING.md):
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-06-10
+
+Roadmap quality + usability pass, full coverage, and the public-facing docs.
+
+### Added
+- **Auto-detected meta prerequisites.** Meta-achievements (Glory of the Raider, Loremaster,
+  expansion metas…) now read their prerequisite achievements straight from the API
+  (criteria of type "complete achievement"). A meta with unmet prerequisites sinks and
+  shows `blocked by N achievements`; once all prerequisites are done it surfaces. No
+  guessing — the gates come from the game.
+- **Difficulty (tier) filter** — a new dropdown next to Expansion: show only Easy·Solo,
+  Medium, Grind/Long-term, Group, Hard/RNG, Unobtainable or Uncurated.
+- **Complete curation coverage (1800+ entries).** Every top category with missing
+  achievements is now curated: the remaining Professions and Expansion Features, plus
+  Characters and the network-failed stragglers from the previous pass. Only a single
+  Feat of Strength is left uncurated (and it already shows as Unobtainable).
+- **Bilingual docs + screenshots.** English + Português-BR READMEs with a language
+  switcher, in-game screenshots, and a CurseForge store description.
+
+### Fixed
+- **Detail panel no longer overlaps itself.** Info and criteria used to live in two
+  fixed-height areas that collided on long content (e.g. a meta with many criteria),
+  making the text unreadable and the scroll useless. Everything (points, dimensions,
+  description, note, and the criteria checklist) now lives in one scroll body that grows
+  with the text, opens at the top and scrolls with the wheel.
+
+### Changed
+- **Filter bar on fewer rows.** Category, Subcategory and Expansion (plus the new
+  Difficulty) sit on one line (labels dropped — the dropdown text is self-describing);
+  "Current zone" became an **Only current zone** checkbox next to the other toggles.
+  The window widened to fit the filters.
+
 ## [0.3.0] - 2026-06-09
 
 Full-game curation: the difficulty overlay now covers **every top category** with missing
@@ -144,7 +176,8 @@ commands, CI + release pipeline), with a difficulty-curation roadmap on top.
 - Difficulty curation is incremental: only Fishing is curated so far; other categories
   appear in a neutral *Uncurated* tier until classified.
 
-[Unreleased]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/lucas-fsousa/AchievementTracker/releases/tag/v0.1.0
