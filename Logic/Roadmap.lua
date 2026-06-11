@@ -147,8 +147,12 @@ local function playerZoneCandidates()
             if not seen[l] then seen[l] = true; names[#names + 1] = l end
         end
     end
-    -- A zona/subzona atual pelo texto (cobre o caso comum direto).
-    add(GetSubZoneText and GetSubZoneText())
+    local inInstance = IsInInstance and IsInInstance()
+    -- A SUBZONA (sala de boss) so entra no MUNDO ABERTO. Dentro de instancia ela e o
+    -- nome de uma sala que se REPETE entre expansoes (ex.: "Nefarian's Lair" existe no
+    -- Blackwing Lair classico E no Blackwing Descent do Cataclysm) -> casaria a raid
+    -- errada. La dentro confiamos so no nome ESPECIFICO da instancia.
+    if not inInstance then add(GetSubZoneText and GetSubZoneText()) end
     add(GetZoneText and GetZoneText())
     add(GetRealZoneText and GetRealZoneText())
     -- Nome da INSTANCIA quando dentro de uma (dungeon/raid). E o sinal mais confiavel
