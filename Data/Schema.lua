@@ -21,10 +21,14 @@
 --       -- do Wowhead). Peso pequeno no score: so desempata os "faceis" entre si.
 --       effortMinutes = 30,
 --
+--       -- Localizacao p/ o filtro "Only current zone" (casamento PRECISO por uiMapID).
+--       map     = 2112,             -- uiMapID da zona/instancia (preenchido pelo tooling
+--                                   --   de mapas, ou manual). E o sinal usado pelo filtro.
+--       zone    = "Valdrakken",     -- alternativa por NOME (resolvido p/ uiMapID em runtime)
+--       coords  = { map = 2112, x = 50, y = 50 },  -- opcional (waypoint; coords.map tb conta)
+--
 --       -- Contexto p/ a UI (opcional, mas valioso)
 --       note    = "Faca o evento semanal por ~4 semanas; pode fazer sozinho.",
---       zone    = "Valdrakken",     -- onde se faz (p/ filtro de zona / waypoint)
---       coords  = { map = 2112, x = 50, y = 50 },  -- opcional (waypoint)
 --       wowhead = "https://www.wowhead.com/achievement=12529",
 --   },
 -- })

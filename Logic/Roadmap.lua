@@ -134,75 +134,58 @@ function Roadmap.Build(onDone)
     return Roadmap.BuildAsync(onDone)
 end
 
--- ---- Filtro de zona atual ----
+-- ---- Filtro de zona atual (casamento PRECISO por uiMapID, sem texto fuzzy) ----
+-- Em vez de comparar nomes de zona (fragil: colidia entre expansoes -> Uldum em
+-- Harandar, "Nefarian's Lair" em 2 raids), comparamos o uiMapID do jogador contra um
+-- uiMapID DERIVADO da conquista de forma confiavel. Sem sinal confiavel -> nao aparece
+-- (preferimos "vazio" a "errado").
 
--- Nomes que contam como "zona atual": o mapa onde o jogador esta + seus DESCENDENTES
--- (subzonas/sub-areas). Sempre PAI -> FILHO: nunca subimos para o mapa pai, senao
--- entrariam zonas irmas (ex.: em Maldraxxus apareceria Revendreth via continente).
-local function playerZoneCandidates()
-    local names, seen = {}, {}
-    local function add(t)
-        if t and t ~= "" then
-            local l = t:lower()
-            if not seen[l] then seen[l] = true; names[#names + 1] = l end
-        end
+-- uiMapIDs da localizacao atual: o mapa do jogador + ancestrais ATE (sem incluir) o
+-- continente. Assim, estar numa subzona de Uldum casa "Uldum", mas nunca o continente
+-- (que traria zonas irmas).
+local function playerMapChain()
+    local chain, seen = {}, {}
+    if not (C_Map and C_Map.GetBestMapForUnit) then return chain end
+    local mid = C_Map.GetBestMapForUnit("player")
+    local guard = 0
+    while mid and guard < 12 do
+        guard = guard + 1
+        local info = C_Map.GetMapInfo(mid)
+        if not info then break end
+        if info.mapType and info.mapType <= 2 then break end  -- para antes do continente
+        if not seen[mid] then seen[mid] = true; chain[#chain + 1] = mid end
+        mid = info.parentMapID
     end
-    local inInstance = IsInInstance and IsInInstance()
-    -- A SUBZONA (sala de boss) so entra no MUNDO ABERTO. Dentro de instancia ela e o
-    -- nome de uma sala que se REPETE entre expansoes (ex.: "Nefarian's Lair" existe no
-    -- Blackwing Lair classico E no Blackwing Descent do Cataclysm) -> casaria a raid
-    -- errada. La dentro confiamos so no nome ESPECIFICO da instancia.
-    if not inInstance then add(GetSubZoneText and GetSubZoneText()) end
-    add(GetZoneText and GetZoneText())
-    add(GetRealZoneText and GetRealZoneText())
-    -- Nome da INSTANCIA quando dentro de uma (dungeon/raid). E o sinal mais confiavel
-    -- la dentro: as conquistas costumam citar a instancia na descricao (ex.: "...in
-    -- Theater of Pain..."), mesmo quando o nome da conquista e so o do boss.
-    if GetInstanceInfo then add((GetInstanceInfo())) end
-    -- O mapa atual + todos os descendentes (subzonas), descendo a arvore.
-    if C_Map and C_Map.GetBestMapForUnit then
-        local mid = C_Map.GetBestMapForUnit("player")
-        local info = mid and C_Map.GetMapInfo(mid)
-        if info then add(info.name) end
-        if mid and C_Map.GetMapChildrenInfo then
-            local kids = C_Map.GetMapChildrenInfo(mid, nil, true)  -- todos os descendentes
-            if kids then for _, k in ipairs(kids) do add(k.name) end end
-        end
-    end
-    return names
+    return chain
 end
 
--- Strings da conquista que podem citar a ZONA/INSTANCIA atual (mapa, nao expansao). A
--- API nao da uma "zona" por conquista, entao usamos: o `zone`/coords curado, o NOME e a
--- DESCRICAO (que quase sempre cita o local: "Defeat X in Theater of Pain", "Explore
--- Maldraxxus"). NAO usamos a subcategoria: ela costuma ser a expansao inteira (ex.:
--- "Shadowlands"), o que casaria zonas vizinhas erradas. Como casamos contra o nome
--- ESPECIFICO da zona/instancia (nunca o continente), a descricao nao traz vizinhos.
-local function itemZoneStrings(item)
-    local z = {}
+-- uiMapID da conquista (ou nil) por sinais CONFIAVEIS apenas:
+--   1) curado: entry.map (uiMapID) / entry.coords.map / entry.zone (nome -> uiMapID)
+--   2) exploracao: nome "Explore <Zona>" -> uiMapID da zona
+-- (O tooling de mapas, etapa 2, vai preencher entry.map p/ instancias e demais zonas.)
+local function achievementMapID(item)
     local e = item.entry
     if e then
-        if e.zone then z[#z + 1] = e.zone end
-        if e.coords and e.coords.zone then z[#z + 1] = e.coords.zone end
+        if e.map then return e.map end
+        if e.coords and e.coords.map then return e.coords.map end
+        if e.zone and ns.Waypoint and ns.Waypoint.MapForZone then
+            return ns.Waypoint.MapForZone(e.zone)
+        end
     end
-    if item.name and item.name ~= "" then z[#z + 1] = item.name end
-    if item.description and item.description ~= "" then z[#z + 1] = item.description end
-    return z
+    local zone = item.name and item.name:match("^Explore%s+(.+)$")
+    if zone and ns.Waypoint and ns.Waypoint.MapForZone then
+        return ns.Waypoint.MapForZone(zone)
+    end
+    return nil
 end
 
--- Casa quando algum nome de zona do jogador aparece numa das strings da conquista
--- (ou vice-versa). pz e o nome de zona do jogador (curto); preferimos achar pz dentro
--- da string da conquista. Ignoramos pz muito curto p/ evitar falso positivo.
-local function zoneMatches(item, playerZones)
-    if not playerZones or #playerZones == 0 then return false end
-    local strings = itemZoneStrings(item)
-    for _, pz in ipairs(playerZones) do
-        if #pz >= 4 then
-            for _, z in ipairs(strings) do
-                local lz = z:lower()
-                if lz:find(pz, 1, true) or pz:find(lz, 1, true) then return true end
-            end
-        end
+-- Casa se o uiMapID da conquista esta na cadeia de mapas atuais do jogador.
+local function zoneMatches(item, playerChain)
+    if not playerChain or #playerChain == 0 then return false end
+    local amid = achievementMapID(item)
+    if not amid then return false end
+    for _, mid in ipairs(playerChain) do
+        if mid == amid then return true end
     end
     return false
 end
@@ -217,7 +200,7 @@ function Roadmap.Filtered()
     local expFilter = s.expansionFilter
     local tierFilter = s.tierFilter
     local zoneCurrent = (s.zoneFilter == "Current")
-    local playerZones = zoneCurrent and playerZoneCandidates() or nil
+    local playerZones = zoneCurrent and playerMapChain() or nil
 
     for _, item in ipairs(items) do
         local show = true
@@ -237,18 +220,24 @@ function Roadmap.Filtered()
     return out
 end
 
--- Diagnostico do filtro de zona (/achtrack zone).
+-- Diagnostico do filtro de zona (/achtrack zone). Mostra os uiMapIDs atuais (com nome)
+-- e as conquistas que casam.
 function Roadmap.ZoneDebug()
-    local cands = playerZoneCandidates()
+    local chain = playerMapChain()
+    local labels = {}
+    for _, mid in ipairs(chain) do
+        local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(mid)
+        labels[#labels + 1] = ("%s(%d)"):format((info and info.name) or "?", mid)
+    end
     local items = ns._roadmap or {}
     local matched, examples = 0, {}
     for _, item in ipairs(items) do
-        if not item.completed and zoneMatches(item, cands) then
+        if not item.completed and zoneMatches(item, chain) then
             matched = matched + 1
             if #examples < 5 then examples[#examples + 1] = item.name end
         end
     end
-    return cands, matched, examples
+    return labels, matched, examples
 end
 
 -- Categorias de TOPO presentes (alimenta o dropdown de Categoria).
