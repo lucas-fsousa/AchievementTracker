@@ -15,6 +15,15 @@ ns.UI = ns.UI or {}            -- frames
 -- Lista mestra agregada de TODAS as entradas curadas (todas as categorias).
 ns.Data.All = ns.Data.All or {}
 
+-- Overlay de MAPAS: [achievementID] = uiMapID. Gerado por tools/build_maps.py (entidade
+-- dos criterios -> uiMapID via Wowhead). Usado SO pelo filtro "Only current zone", de
+-- forma precisa (uiMapID, sem texto fuzzy). Separado das entradas de dificuldade.
+ns.Data.Maps = ns.Data.Maps or {}
+function ns.Data.RegisterMaps(tbl)
+    if not tbl then return end
+    for id, mapID in pairs(tbl) do ns.Data.Maps[id] = mapID end
+end
+
 -- Cada arquivo Data/Achievements_<X>.lua chama isto para registrar suas entradas.
 -- O overlay e indexado por achievementID, no formato { [id] = { dimensoes... } }.
 -- `label` rotula a sprint (ex.: "Exploration", "Holiday"); so informativo. Cada

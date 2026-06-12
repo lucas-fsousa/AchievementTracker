@@ -23,6 +23,7 @@ Core\Waypoint.lua
 # /reload (sem reiniciar o cliente, que so e necessario quando um arquivo NOVO entra
 # no .toc). Stubs vazios ficam inertes ate serem preenchidos.
 Data\Schema.lua
+Data\AchievementMaps.lua
 Data\Achievements_Character.lua
 Data\Achievements_Quests.lua
 Data\Achievements_Exploration.lua

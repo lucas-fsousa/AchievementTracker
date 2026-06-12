@@ -172,6 +172,10 @@ local function achievementMapID(item)
             return ns.Waypoint.MapForZone(e.zone)
         end
     end
+    -- Overlay de mapas gerado pelo tooling (entidade dos criterios -> uiMapID).
+    if ns.Data and ns.Data.Maps and ns.Data.Maps[item.id] then
+        return ns.Data.Maps[item.id]
+    end
     local zone = item.name and item.name:match("^Explore%s+(.+)$")
     if zone and ns.Waypoint and ns.Waypoint.MapForZone then
         return ns.Waypoint.MapForZone(zone)
