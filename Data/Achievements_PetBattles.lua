@@ -1816,3 +1816,491 @@ ns.Data.Register("Pet Battles", {
         wowhead = "https://www.wowhead.com/achievement=41550",
     },
 })
+
+ns.Data.Register("Pet Battles (all)", {
+    -- From The Belly Of The Jelly
+    [13715] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 15,
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13715",
+    },
+    -- Pet Emporium
+    [12992] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=12992",
+    },
+    -- Quality & Quantity
+    [7464] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7464",
+    },
+    -- A Sly Fox
+    [15004] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 255,
+        expansion = "Shadowlands",
+        wowhead = "https://www.wowhead.com/achievement=15004",
+    },
+    -- Dragon Isles Safari
+    [16519] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 49,
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=16519",
+    },
+    -- Continental Tamer
+    [6611] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6611",
+    },
+    -- Pandaria Tamer
+    [6616] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6616",
+    },
+    -- Northrend Tamer
+    [6615] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 105,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6615",
+    },
+    -- Eastern Kingdoms Tamer
+    [6613] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 75,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6613",
+    },
+    -- Raiding with Leashes V: Cuteaclysm
+    [12079] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 5,
+        wowhead = "https://www.wowhead.com/achievement=12079",
+    },
+    -- Zen Pet Hunter
+    [7436] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7436",
+    },
+    -- Raiding with Leashes VI: Pets of Pandaria
+    [13469] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        wowhead = "https://www.wowhead.com/achievement=13469",
+    },
+    -- Outland Safari
+    [6587] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6587",
+    },
+    -- Outland Tamer
+    [6614] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6614",
+    },
+    -- Raiding with Leashes IV: Wrath of the Lick King
+    [11320] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        wowhead = "https://www.wowhead.com/achievement=11320",
+    },
+    -- Kalimdor Tamer
+    [6612] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6612",
+    },
+    -- Raiding with Leashes III: Drinkin' From the Sunwell
+    [9824] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        wowhead = "https://www.wowhead.com/achievement=9824",
+    },
+    -- Raiding with Leashes II: Attunement Edition
+    [8293] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 2880,
+        wowhead = "https://www.wowhead.com/achievement=8293",
+    },
+    -- Raiding with Leashes
+    [7934] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 8,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7934",
+    },
+    -- Family Reunion
+    [6608] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6608",
+    },
+    -- That Was Close!
+    [6571] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6571",
+    },
+    -- An Uncommon Find
+    [7465] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 30,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7465",
+    },
+    -- Battle on the Broken Isles
+    [10876] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "Legion",
+        wowhead = "https://www.wowhead.com/achievement=10876",
+    },
+    -- World Pet Mauler
+    [6560] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=6560",
+    },
+    -- Big City Pet Brawler
+    [6622] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6622",
+    },
+    -- Big City Pet Brawlin' - Horde
+    [6621] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6621",
+    },
+    -- Big City Pet Brawlin' - Alliance
+    [6584] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6584",
+    },
+    -- Taming Azeroth
+    [6607] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6607",
+    },
+    -- Taming Pandaria
+    [6606] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 30,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6606",
+    },
+    -- Taming Cataclysm
+    [7525] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7525",
+    },
+    -- Taming Northrend
+    [6605] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6605",
+    },
+    -- Taming Outland
+    [6604] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6604",
+    },
+    -- Taming the Great Outdoors
+    [7498] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=7498",
+    },
+    -- Master Pet Battler
+    [6462] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6462",
+    },
+    -- Taming Kalimdor
+    [6602] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6602",
+    },
+    -- Take 'Em All On!
+    [6851] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6851",
+    },
+    -- Win Streak
+    [6619] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6619",
+    },
+    -- Rookie Pet Mob
+    [6583] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "moderate",
+        effortMinutes = 40,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6583",
+    },
+    -- Overstuffed
+    [9070] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "WoD",
+        wowhead = "https://www.wowhead.com/achievement=9070",
+    },
+    -- Pro Pet Mob
+    [6582] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "high",
+        effortMinutes = 14,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6582",
+    },
+    -- All Pets Allowed
+    [6610] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6610",
+    },
+    -- All Growns Up!
+    [6570] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6570",
+    },
+    -- Lovin' Lubbins
+    [16399] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=16399",
+    },
+    -- Polished Pet Charmer
+    [12927] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=12927",
+    },
+    -- Time to Open a Pet Store
+    [7521] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7521",
+    },
+    -- Fabled Pandaren Tamer
+    [8080] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=8080",
+    },
+    -- Pandaren Spirit Tamer
+    [7936] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "none",
+        access  = "current",
+        skill   = "moderate",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7936",
+    },
+    -- I Choose You
+    [7908] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7908",
+    },
+})

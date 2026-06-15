@@ -135,3 +135,35 @@ ns.Data.Register("Housing", {
         wowhead = "https://www.wowhead.com/achievement=62370",
     },
 })
+
+ns.Data.Register("Housing (all)", {
+    -- You Get The Best Deals Anywhere
+    [62374] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=62374",
+    },
+    -- Well-Travelled Collection
+    [61313] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=61313",
+    },
+    -- Welcome Home
+    [61211] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "TWW",
+        wowhead = "https://www.wowhead.com/achievement=61211",
+    },
+})

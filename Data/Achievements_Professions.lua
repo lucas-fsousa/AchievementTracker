@@ -2908,3 +2908,577 @@ ns.Data.Register("Professions (rest)", {
         wowhead = "https://www.wowhead.com/achievement=62252",
     },
 })
+
+ns.Data.Register("Professions (all)", {
+    -- A Cure for All Ails I
+    [18726] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18726",
+    },
+    -- Dangerous Devices I
+    [18872] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18872",
+    },
+    -- Goblins vs Gnomes
+    [18730] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=18730",
+    },
+    -- In Tyr's Footsteps
+    [16683] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 2,
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=16683",
+    },
+    -- Working the Afterlife
+    [14329] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=14329",
+    },
+    -- Scraptastic!
+    [12739] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=12739",
+    },
+    -- Professional Zandalari Master
+    [12733] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=12733",
+    },
+    -- Giving a Scrap
+    [13056] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "BfA",
+        wowhead = "https://www.wowhead.com/achievement=13056",
+    },
+    -- Working the Isles
+    [10581] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=10581",
+    },
+    -- Resourceful
+    [10761] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 15,
+        wowhead = "https://www.wowhead.com/achievement=10761",
+    },
+    -- Working in Draenor
+    [9507] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "WoD",
+        wowhead = "https://www.wowhead.com/achievement=9507",
+    },
+    -- Working For a Living
+    [6835] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6835",
+    },
+    -- Working In the Heat
+    [4914] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=4914",
+    },
+    -- Working In the Cold
+    [735] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=735",
+    },
+    -- Professional Outland Master
+    [733] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=733",
+    },
+    -- Professional Classic Master
+    [732] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=732",
+    },
+    -- Iron Chef
+    [5471] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 15,
+        expansion = "Cataclysm",
+        wowhead = "https://www.wowhead.com/achievement=5471",
+    },
+    -- 25 Cooking Awards
+    [2000] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=2000",
+    },
+    -- Master of the Wok
+    [7301] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7301",
+    },
+    -- The Pandaren Gourmet
+    [7327] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7327",
+    },
+    -- Legion Cook
+    [10589] = {
+        group   = "solo",
+        effort  = "multi-session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 210,
+        wowhead = "https://www.wowhead.com/achievement=10589",
+    },
+    -- Draenor Cook
+    [9500] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "WoD",
+        wowhead = "https://www.wowhead.com/achievement=9500",
+    },
+    -- Zen Master Cook
+    [6365] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 60,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6365",
+    },
+    -- Never A Day's Rest
+    [10592] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Legion",
+        wowhead = "https://www.wowhead.com/achievement=10592",
+    },
+    -- Cataclysmic Cook
+    [4916] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 10,
+        wowhead = "https://www.wowhead.com/achievement=4916",
+    },
+    -- Northrend Cook
+    [125] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 10,
+        wowhead = "https://www.wowhead.com/achievement=125",
+    },
+    -- Outland Cook
+    [124] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 10,
+        wowhead = "https://www.wowhead.com/achievement=124",
+    },
+    -- Classic Cook
+    [123] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 10,
+        wowhead = "https://www.wowhead.com/achievement=123",
+    },
+    -- All Grown Up
+    [10591] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Legion",
+        wowhead = "https://www.wowhead.com/achievement=10591",
+    },
+    -- Dragon Isles Fisherman
+    [16632] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Dragonflight",
+        wowhead = "https://www.wowhead.com/achievement=16632",
+    },
+    -- Mr. Pinchy's Magical Crawdad Box
+    [726] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 57,
+        wowhead = "https://www.wowhead.com/achievement=726",
+    },
+    -- Outland Angler
+    [1225] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 25,
+        wowhead = "https://www.wowhead.com/achievement=1225",
+    },
+    -- Northrend Angler
+    [1517] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 7,
+        wowhead = "https://www.wowhead.com/achievement=1517",
+    },
+    -- Shadowlands Fisherman
+    [14333] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=14333",
+    },
+    -- The Scavenger
+    [1257] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 45,
+        wowhead = "https://www.wowhead.com/achievement=1257",
+    },
+    -- Locking Down the Docks
+    [7614] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 20,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=7614",
+    },
+    -- The Fishing Diplomat
+    [150] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 12,
+        wowhead = "https://www.wowhead.com/achievement=150",
+    },
+    -- 1000 Fish
+    [1561] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 120,
+        wowhead = "https://www.wowhead.com/achievement=1561",
+    },
+    -- Bigger Fish to Fry
+    [10596] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 10,
+        wowhead = "https://www.wowhead.com/achievement=10596",
+    },
+    -- Legion Fisherman
+    [10594] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=10594",
+    },
+    -- Draenor Fisherman
+    [9503] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "WoD",
+        wowhead = "https://www.wowhead.com/achievement=9503",
+    },
+    -- Zen Master Fisherman
+    [6839] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 30,
+        expansion = "MoP",
+        wowhead = "https://www.wowhead.com/achievement=6839",
+    },
+    -- Cataclysmic Fisherman
+    [4917] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 120,
+        wowhead = "https://www.wowhead.com/achievement=4917",
+    },
+    -- Northrend Fisherman
+    [130] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=130",
+    },
+    -- Outland Fisherman
+    [129] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=129",
+    },
+    -- Artisan Fisherman
+    [128] = {
+        group   = "solo",
+        effort  = "multi-session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 300,
+        wowhead = "https://www.wowhead.com/achievement=128",
+    },
+    -- Fish Don't Leave Footprints
+    [1243] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 28,
+        wowhead = "https://www.wowhead.com/achievement=1243",
+    },
+    -- Legion Aquaculture
+    [10597] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=10597",
+    },
+    -- The Lurker Above
+    [144] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 5,
+        wowhead = "https://www.wowhead.com/achievement=144",
+    },
+    -- The Old Gnome and the Sea
+    [153] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=153",
+    },
+    -- It Belongs in a Museum!
+    [4856] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 30,
+        expansion = "Cataclysm",
+        wowhead = "https://www.wowhead.com/achievement=4856",
+    },
+    -- Diggerest
+    [5470] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        expansion = "Cataclysm",
+        wowhead = "https://www.wowhead.com/achievement=5470",
+    },
+    -- Tragedy in Three Acts
+    [5191] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=5191",
+    },
+    -- The Boy Who Would be King
+    [5301] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "low",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=5301",
+    },
+    -- This Side Up
+    [10602] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "high",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 15,
+        expansion = "Legion",
+        wowhead = "https://www.wowhead.com/achievement=10602",
+    },
+    -- Legion Archaeologist
+    [10600] = {
+        group   = "solo",
+        effort  = "long-term",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        effortMinutes = 5,
+        expansion = "Legion",
+        wowhead = "https://www.wowhead.com/achievement=10600",
+    },
+    -- Getting Your Hands Dirty
+    [10607] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=10607",
+    },
+    -- Handle With Care
+    [10605] = {
+        group   = "solo",
+        effort  = "session",
+        rng     = "none",
+        access  = "current",
+        skill   = "trivial",
+        wowhead = "https://www.wowhead.com/achievement=10605",
+    },
+})
