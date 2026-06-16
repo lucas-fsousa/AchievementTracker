@@ -15,7 +15,32 @@ HOW TO RELEASE (see RELEASING.md):
 
 ## [Unreleased]
 
-## [0.4.0] - 2026-06-10
+## [0.5.0] - 2026-06-16
+
+Precise current-zone filtering and near-complete curation coverage.
+
+### Fixed
+- **"Only current zone" was matching the wrong things.** It used fuzzy text matching
+  (achievement name/description/subzone as substrings), which leaked across expansions —
+  e.g. Uldum showing up in Harandar, or a boss room like *Nefarian's Lair* matching two
+  different raids. It now matches the player's **uiMapID** against a precise map per
+  achievement, so it only ever shows things actually tied to where you are.
+
+### Added
+- **Precise zone mapping.** Each achievement resolves to a uiMapID from reliable signals:
+  a curated `map`/`zone`, the *Explore <Zone>* name, or — via the new tooling — the map
+  of its criteria entities (NPC/quest/object) read from Wowhead. An achievement with no
+  reliable location simply doesn't appear in the current-zone view (no wrong matches).
+  Ships with 300+ achievements mapped, growing.
+- **Difficulty curation across the whole game (~4796 entries, up from ~1848).** Now also
+  covers achievements this account has already completed, so other players (for whom they
+  are incomplete) get the difficulty data too.
+- **Curation tooling**: `prefetch.py` (caches all achievement pages) and `build_maps.py`
+  (derives the zone overlay), on top of the existing polite cached Wowhead scraper.
+
+### Changed
+- **Narrower window.** The filter bar was over-wide; the dropdowns and window were
+  tightened.
 
 Roadmap quality + usability pass, full coverage, and the public-facing docs.
 
@@ -176,7 +201,8 @@ commands, CI + release pipeline), with a difficulty-curation roadmap on top.
 - Difficulty curation is incremental: only Fishing is curated so far; other categories
   appear in a neutral *Uncurated* tier until classified.
 
-[Unreleased]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/lucas-fsousa/AchievementTracker/compare/v0.1.0...v0.2.0
